@@ -18,8 +18,9 @@ class Palette extends Component {
   }
   changeFormat(e) {
     this.setState({
-      format: e,
+      format: e.toLowerCase(),
     });
+    console.log("e ", e);
   }
   render() {
     const colorBoxes = this.props.palette.colors[this.state.level].map((c) => (
