@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import Palette from './Palette';
+import PaletteList from './PaletteList';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
 function findPalette(id) {
@@ -29,7 +30,7 @@ function App() {
 	const foundPalette = findPalette(id);
 	return (
 		<Routes>
-			<Route path="/" element={<h1>PALETTE LIST GOES HERE</h1>} />
+			<Route path="/" element={<PaletteList palettes={seedColors} />} />
 			<Route path="/palette/:id" element={<PalettePage />} />
 		</Routes>
 		// <div>
