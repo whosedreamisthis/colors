@@ -13,13 +13,15 @@ function Palette({ palette }) {
 	}
 	return (
 		<div className="Palette">
-			<Slider
-				defaultValue={level}
-				min={100}
-				max={900}
-				step={100}
-				onChangeComplete={changeLevel}
-			/>
+			<div className="slider">
+				<Slider
+					defaultValue={level}
+					min={100}
+					max={900}
+					step={100}
+					onChangeComplete={changeLevel}
+				/>
+			</div>
 			<div className="Palette-colors">{colorBoxes}</div>
 			{/* footer */}
 		</div>
