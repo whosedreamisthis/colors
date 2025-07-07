@@ -3,10 +3,11 @@ import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import './Palette.css';
 function Palette({ palette }) {
+	const { paletteName, colors, emoji } = palette;
 	const [level, setLevel] = useState(500);
 	const [format, setFormat] = useState('hex');
 
-	const colorBoxes = palette.colors[level].map((color) => {
+	const colorBoxes = colors[level].map((color) => {
 		return (
 			<ColorBox
 				key={color.id}
@@ -30,7 +31,10 @@ function Palette({ palette }) {
 				changeFormat={changeFormat}
 			/>
 			<div className="Palette-colors">{colorBoxes}</div>
-			{/* footer */}
+			<footer className="Palette-footer">
+				{paletteName}
+				<span className="emoji">{emoji}</span>
+			</footer>
 		</div>
 	);
 }
