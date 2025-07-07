@@ -6,20 +6,40 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 class Navbar extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { format: 'hex' };
+		this.state = { format: 'hex', open: false };
 		this.changeFormat = this.changeFormat.bind(this);
+		this.closeSnackbar = this.closeSnackbar.bind(this);
 	}
+
 	changeFormat(e) {
 		this.setState({ format: e.target.value });
 		this.props.changeFormat(e.target.value);
+		this.setState({ open: true });
+	}
+	closeSnackbar() {
+		this.setState({ open: false });
 	}
 	render() {
 		const { level, changeLevel } = this.props;
-		const { format } = this.state;
+		const { format, open } = this.state;
+		const action = (
+			<React.Fragment>
+				<IconButton
+					size="small"
+					aria-label="close"
+					onClick={this.handleClose}
+				>
+					<CloseIcon color="inherit" fontSize="small" />
+				</IconButton>
+			</React.Fragment>
+		);
+
 		return (
 			<header className="Navbar">
 				<div className="logo">
@@ -37,6 +57,7 @@ class Navbar extends Component {
 						/>
 					</div>
 				</div>
+
 				<div className="select-container">
 					<Select
 						labelId="demo-simple-select-label"
@@ -54,20 +75,28 @@ class Navbar extends Component {
 						</MenuItem>
 					</Select>
 				</div>
-				{/* <FormControl fullWidth>
-					<InputLabel id="demo-simple-select-label">Age</InputLabel>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={12}
-						label="Age"
-						onChange={() => {}}
-					>
-						<MenuItem value={10}>Ten</MenuItem>
-						<MenuItem value={20}>Twenty</MenuItem>
-						<MenuItem value={30}>Thirty</MenuItem>
-					</Select>
-				</FormControl> */}
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+					open={open}
+					autoHideDuration={3000}
+					onClose={this.closeSnackbar}
+					message={
+						<span id="message-id">
+							Format Changed to {format.toUpperCase()}
+						</span>
+					}
+					// ContentProps={}
+					action={[
+						<IconButton
+							onClick={this.closeSnackbar}
+							color="inherit"
+							key="close"
+							aria-label="close"
+						>
+							<CloseIcon />
+						</IconButton>,
+					]}
+				/>
 			</header>
 		);
 	}
