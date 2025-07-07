@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MiniPalette.module.css';
-function MiniPalette({ paletteName, emoji, colors }) {
+function MiniPalette({ paletteName, emoji, colors, handleClick }) {
 	const miniColorBoxes = colors.map((color) => {
 		return (
 			<div
@@ -11,7 +11,7 @@ function MiniPalette({ paletteName, emoji, colors }) {
 		);
 	});
 	return (
-		<div className={styles.root}>
+		<div className={styles.root} onClick={handleClick}>
 			<div className={styles.colors}>{miniColorBoxes}</div>
 			<h5 className={styles.title}>
 				{paletteName}
