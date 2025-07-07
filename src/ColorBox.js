@@ -1,22 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 import { useClipboard } from 'use-clipboard-copy';
 import './ColorBox.css';
 export default function ColorBox({ name, background }) {
 	const clipboard = useClipboard();
+	const [copied, setCopied] = useState(false);
 
+	const changeCopyState = () => {
+		setCopied(true);
+		clipboard.copy(background);
+		setTimeout(() => {
+			setCopied(false);
+		}, 1500);
+	};
 	return (
-		<div style={{ background }} className="ColorBox">
+		<div
+			style={{ background }}
+			className="ColorBox"
+			onClick={() => changeCopyState()}
+		>
+			<div
+				className={`copy-overlay ${copied && 'show'}`}
+				style={{ background }}
+			/>
+			<div className={`copy-msg ${copied && 'show'}`}>
+				<h1>Copied!</h1>
+				<p>{background}</p>
+			</div>
 			<div className="copy-container">
 				<div className="box-content">
 					<span>{name}</span>
 				</div>
-				<button
-					className="copy-button"
-					onClick={() => clipboard.copy(background)}
-				>
-					Copy
-				</button>
+				<button className="copy-button">Copy</button>
 			</div>
 			<span className="see-more">More</span>
 		</div>
