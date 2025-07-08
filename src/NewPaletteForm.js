@@ -14,6 +14,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import Button from '@mui/material/Button';
 import DraggableColorBox from './DraggableColorBox';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { useSearchParams } from 'react-router-dom';
+
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -76,7 +79,8 @@ export default function NewPaletteForm() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
-	const [colors, setColors] = React.useState(['purple', '#e15764']);
+	const [colors, setColors] = React.useState([]);
+	const [newName, setNewName] = React.useState('');
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -90,8 +94,45 @@ export default function NewPaletteForm() {
 		console.log('New color selected:', newColor);
 	};
 	const addNewColor = () => {
-		setColors([...colors, currentColor]);
+		const newColor = { color: currentColor, name: newName };
+		setColors([...colors, newColor]);
+		setNewName('');
 	};
+
+	const handleChange = (e) => {
+		setNewName(e.target.value);
+	};
+	React.useEffect(() => {
+		// Validation rule for unique color names
+		ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
+			// Corrected: 'colors' refers to the state variable
+			return colors.every(
+				({ name }) => name.toLowerCase() !== value.toLowerCase()
+			);
+		});
+
+		// Validation rule for unique color values (optional, but often useful)
+		ValidatorForm.addValidationRule('isColorUnique', (value) => {
+			// Converts current color object to a string for comparison
+			const currentColorString = `rgba(${currentColor.r},${currentColor.g},${currentColor.b},${currentColor.a})`;
+			return colors.every(({ color }) => {
+				// Assuming stored colors are also RGBA objects or hex strings
+				// const storedColorString =
+				// 	typeof color === 'string'
+				// 		? color
+				// 		: `rgba(${color.r},${color.g},${color.b},${color.a})`;
+				// return storedColorString !== currentColorString;
+				return color !== currentColor;
+			});
+		});
+
+		// Cleanup function (optional, but good practice if rules might change)
+		return () => {
+			ValidatorForm.removeValidationRule('isColorNameUnique');
+			ValidatorForm.removeValidationRule('isColorUnique');
+		};
+	}, [colors, currentColor]); // Dependencies: re-add rules if colors or currentColor change
+
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -148,19 +189,40 @@ export default function NewPaletteForm() {
 					color={currentColor}
 					onChangeComplete={handleColorChangeComplete}
 				/>
-				<Button
-					variant="contained"
-					style={{ backgroundColor: currentColor }}
-					onClick={addNewColor}
-				>
-					Add Color
-				</Button>
+				<ValidatorForm onSubmit={addNewColor}>
+					<TextValidator
+						value={newName}
+						onChange={handleChange}
+						validators={[
+							'required',
+							'isColorNameUnique',
+							'isColorUnique',
+						]}
+						errorMessages={[
+							'Enter a color name',
+							'Color name must be unique',
+							'Color must be unique',
+						]}
+					/>
+					<Button
+						variant="contained"
+						style={{ backgroundColor: currentColor }}
+						type="submit"
+					>
+						Add Color
+					</Button>
+				</ValidatorForm>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
 
 				{colors.map((color) => {
-					return <DraggableColorBox color={color} />;
+					return (
+						<DraggableColorBox
+							color={color.color}
+							name={color.name}
+						/>
+					);
 				})}
 			</Main>
 		</Box>
