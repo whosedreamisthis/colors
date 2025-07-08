@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
@@ -109,9 +109,16 @@ export default function SingleColorPalette({ palette }) {
 	console.log('--- SingleColorPalette Render End ---');
 
 	return (
-		<div className="Palette">
-			<Navbar handleChange={changeFormat} />
-			<div className="Palette-colors">{colorBoxes}</div>
+		<div className="SingleColorPalette Palette">
+			<Navbar changeFormat={changeFormat} />
+			<div className="Palette-colors">
+				{colorBoxes}
+				<div className="go-back ColorBox">
+					<Link to={`/palette/${paletteId}`} className="back-button">
+						GO BACK
+					</Link>
+				</div>
+			</div>
 			<PaletteFooter
 				paletteName={palette.paletteName}
 				emoji={palette.emoji}

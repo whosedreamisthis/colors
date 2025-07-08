@@ -20,7 +20,7 @@ class Navbar extends Component {
 
 	changeFormat(e) {
 		this.setState({ format: e.target.value });
-		this.props.handleChange(e.target.value);
+		this.props.changeFormat(e.target.value);
 		this.setState({ open: true });
 	}
 	closeSnackbar() {
