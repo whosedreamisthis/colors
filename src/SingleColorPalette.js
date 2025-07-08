@@ -97,7 +97,7 @@ export default function SingleColorPalette({ palette }) {
 		_shades && Array.isArray(_shades)
 			? _shades.map((color) => (
 					<ColorBox
-						key={color.hex}
+						key={color.name}
 						name={color.name}
 						background={color[format]}
 						showLink={false}
