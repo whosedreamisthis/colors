@@ -13,11 +13,11 @@ export default class PaletteList extends Component {
 					</nav>
 					<div className={styles.palettes}>
 						{palettes.map((palette) => (
-							<Link to={`palette/${palette.id}`}>
-								<MiniPalette
-									{...palette}
-									key={palette.paletteName}
-								/>
+							<Link
+								key={palette.paletteName}
+								to={`palette/${palette.id}`}
+							>
+								<MiniPalette {...palette} />
 							</Link>
 						))}
 					</div>
