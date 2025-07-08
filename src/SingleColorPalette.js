@@ -94,6 +94,7 @@ export default function SingleColorPalette({ palette }) {
 						key={color.hex}
 						name={color.name}
 						background={color.hex}
+						showLink={false}
 					/>
 			  ))
 			: []; // Provide an empty array fallback
@@ -102,22 +103,26 @@ export default function SingleColorPalette({ palette }) {
 	console.log('--- SingleColorPalette Render End ---');
 
 	return (
-		<div className="SingleColorPalette">
-			<h1>
-				{palette?.paletteName || 'Loading Palette...'} - {colorId}
-			</h1>
-			<div className="PaletteColors">
-				{colorBoxes.length > 0 ? (
-					colorBoxes
-				) : (
-					<p>
-						Loading or No shades found for this color. Please check
-						your data and URL.
-					</p>
-				)}
-			</div>
-			{/* Optional: Back button */}
-			{/* <Link to={`/palette/${paletteId}`} className="back-button">Go Back</Link> */}
+		<div className="Palette">
+			<h1>Single Color Palette</h1>
+			<div className="Palette-colors">{colorBoxes}</div>
 		</div>
+		// <div className="SingleColorPalette">
+		// 	<h1>
+		// 		{palette?.paletteName || 'Loading Palette...'} - {colorId}
+		// 	</h1>
+		// 	<div className="PaletteColors">
+		// 		{colorBoxes.length > 0 ? (
+		// 			colorBoxes
+		// 		) : (
+		// 			<p>
+		// 				Loading or No shades found for this color. Please check
+		// 				your data and URL.
+		// 			</p>
+		// 		)}
+		// 	</div>
+		// 	{/* Optional: Back button */}
+		// 	{/* <Link to={`/palette/${paletteId}`} className="back-button">Go Back</Link> */}
+		// </div>
 	);
 }

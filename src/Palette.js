@@ -15,6 +15,7 @@ function Palette({ palette }) {
 				name={color.name}
 				paletteId={palette.id}
 				colorId={color.id}
+				showLink={true}
 			/>
 		);
 	});
