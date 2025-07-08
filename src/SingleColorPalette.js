@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
+import PaletteFooter from './PaletteFooter';
+
 export default function SingleColorPalette({ palette }) {
 	const { paletteId, colorId } = useParams();
 	const [format, setFormat] = useState('hex');
@@ -110,6 +112,10 @@ export default function SingleColorPalette({ palette }) {
 		<div className="Palette">
 			<Navbar handleChange={changeFormat} />
 			<div className="Palette-colors">{colorBoxes}</div>
+			<PaletteFooter
+				paletteName={palette.paletteName}
+				emoji={palette.emoji}
+			/>
 		</div>
 		// <div className="SingleColorPalette">
 		// 	<h1>
