@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled, useTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,8 +11,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
-const drawerWidth = 240;
+import { ChromePicker } from 'react-color';
+import Button from '@mui/material/Button';
+const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 	({ theme }) => ({
@@ -72,6 +73,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+	const [currentColor, setCurrentColor] = React.useState({
+		r: 128,
+		g: 0,
+		b: 128,
+		a: 1,
+	}); // Initial color (purple hex)
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -80,7 +87,11 @@ export default function PersistentDrawerLeft() {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-
+	const handleColorChangeComplete = (newColor) => {
+		// newColor object contains { hex, rgb, hsl, hsv }
+		setCurrentColor(newColor.rgb); // Update state with the hex value
+		// console.log('New color selected:', newColor);
+	};
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -124,6 +135,22 @@ export default function PersistentDrawerLeft() {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
+				<Typography variant="h4">Design Your Palette</Typography>
+				<div>
+					<Button variant="contained" color="secondary">
+						Clear Palette
+					</Button>
+					<Button variant="contained" color="primary">
+						Random Color
+					</Button>
+				</div>
+				<ChromePicker
+					color={currentColor}
+					onChangeComplete={handleColorChangeComplete}
+				/>
+				<Button variant="contained" color="primary">
+					Add Color
+				</Button>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
