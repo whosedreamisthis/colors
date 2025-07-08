@@ -70,16 +70,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function NewPaletteForm() {
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
-	const [currentColor, setCurrentColor] = React.useState({
-		r: 128,
-		g: 0,
-		b: 128,
-		a: 1,
-	}); // Initial color (purple hex)
-
+	const [open, setOpen] = React.useState(true);
+	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
+	const [colors, setColors] = React.useState(['purple', '#e15764']);
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -89,8 +84,11 @@ export default function PersistentDrawerLeft() {
 	};
 	const handleColorChangeComplete = (newColor) => {
 		// newColor object contains { hex, rgb, hsl, hsv }
-		setCurrentColor(newColor.rgb); // Update state with the hex value
-		// console.log('New color selected:', newColor);
+		setCurrentColor(newColor.hex); // Update state with the hex value
+		console.log('New color selected:', newColor);
+	};
+	const addNewColor = () => {
+		setColors([...colors, currentColor]);
 	};
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -148,12 +146,23 @@ export default function PersistentDrawerLeft() {
 					color={currentColor}
 					onChangeComplete={handleColorChangeComplete}
 				/>
-				<Button variant="contained" color="primary">
+				<Button
+					variant="contained"
+					style={{ backgroundColor: currentColor }}
+					onClick={addNewColor}
+				>
 					Add Color
 				</Button>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
+				<ul>
+					{colors.map((color) => {
+						return (
+							<li style={{ backgroundColor: color }}>{color}</li>
+						);
+					})}
+				</ul>
 			</Main>
 		</Box>
 	);
