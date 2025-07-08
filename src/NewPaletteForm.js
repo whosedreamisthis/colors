@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useSearchParams } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -75,12 +75,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm({ savePalette }) {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
 	const [colors, setColors] = React.useState([]);
 	const [newName, setNewName] = React.useState('');
+	const navigate = useNavigate();
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -102,6 +103,19 @@ export default function NewPaletteForm() {
 	const handleChange = (e) => {
 		setNewName(e.target.value);
 	};
+
+	const handleSubmit = () => {
+		let newName = 'New passed palette';
+
+		const newPalette = {
+			paletteName: 'testNewPalette',
+			colors: colors,
+			id: newName.toLowerCase().replace(/ /g, '-'),
+		};
+		savePalette(newPalette);
+		navigate('/');
+	};
+
 	React.useEffect(() => {
 		// Validation rule for unique color names
 		ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
@@ -136,7 +150,7 @@ export default function NewPaletteForm() {
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
-			<AppBar position="fixed" open={open}>
+			<AppBar position="fixed" open={open} color="default">
 				<Toolbar>
 					<IconButton
 						color="inherit"
@@ -155,6 +169,13 @@ export default function NewPaletteForm() {
 					<Typography variant="h6" noWrap component="div">
 						Persistent drawer
 					</Typography>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleSubmit}
+					>
+						Save Palette
+					</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer
