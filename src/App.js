@@ -25,18 +25,28 @@ function PalettePage() {
 
 	return <Palette palette={fullPalette} />;
 }
+function SingleColorPaletteWrapper() {
+	const { paletteId, colorId } = useParams();
+	const foundPalette = findPalette(paletteId);
 
+	if (!foundPalette) {
+		return <h1>Palette Not Found!</h1>;
+	}
+
+	// THIS IS THE CRUCIAL PART: Generate the full palette before passing it
+	const generatedFullPalette = generatePalette(foundPalette); // <--- generatePalette here
+
+	return <SingleColorPalette palette={generatedFullPalette} />;
+}
 function App() {
-	const { id } = useParams();
-	const foundPalette = findPalette(id);
 	return (
 		<Routes>
 			<Route path="/" element={<PaletteList palettes={seedColors} />} />
 			<Route path="/palette/:id" element={<PalettePage />} />
 
 			<Route
-				path="palette/:paletteId/:colorId"
-				element={<SingleColorPalette />}
+				path="/palette/:paletteId/:colorId"
+				element={<SingleColorPaletteWrapper />}
 			/>
 		</Routes>
 		// <div>
