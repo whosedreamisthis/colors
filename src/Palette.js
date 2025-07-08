@@ -13,6 +13,8 @@ function Palette({ palette }) {
 				key={color.id}
 				background={color[format]}
 				name={color.name}
+				paletteId={palette.id}
+				colorId={color.id}
 			/>
 		);
 	});

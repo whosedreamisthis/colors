@@ -4,6 +4,7 @@ import Palette from './Palette';
 import PaletteList from './PaletteList';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
+import SingleColorPalette from './SingleColorPalette';
 function findPalette(id) {
 	return seedColors.find((palette) => palette.id === id);
 }
@@ -35,7 +36,7 @@ function App() {
 
 			<Route
 				path="palette/:paletteId/:colorId"
-				element={<h1>SINGLE COLOR PAGE</h1>}
+				element={<SingleColorPalette />}
 			/>
 		</Routes>
 		// <div>
