@@ -5,6 +5,7 @@ import PaletteList from './PaletteList';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
 import SingleColorPalette from './SingleColorPalette';
+import NewPaletteForm from './NewPaletteForm';
 function findPalette(id) {
 	return seedColors.find((palette) => palette.id === id);
 }
@@ -41,6 +42,7 @@ function SingleColorPaletteWrapper() {
 function App() {
 	return (
 		<Routes>
+			<Route path="/palette/new" element={<NewPaletteForm />} />
 			<Route path="/" element={<PaletteList palettes={seedColors} />} />
 			<Route path="/palette/:id" element={<PalettePage />} />
 
