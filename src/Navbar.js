@@ -20,7 +20,7 @@ class Navbar extends Component {
 
 	changeFormat(e) {
 		this.setState({ format: e.target.value });
-		this.props.changeFormat(e.target.value);
+		this.props.handleChange(e.target.value);
 		this.setState({ open: true });
 	}
 	closeSnackbar() {
@@ -46,18 +46,20 @@ class Navbar extends Component {
 				<div className="logo">
 					<Link to="/">reactcolorpicker</Link>
 				</div>
-				<div className="slider-container">
-					<span>Level: {level}</span>
-					<div className="slider">
-						<Slider
-							defaultValue={level}
-							min={100}
-							max={900}
-							step={100}
-							onChangeComplete={changeLevel}
-						/>
+				{level && (
+					<div className="slider-container">
+						<span>Level: {level}</span>
+						<div className="slider">
+							<Slider
+								defaultValue={level}
+								min={100}
+								max={900}
+								step={100}
+								onChangeComplete={changeLevel}
+							/>
+						</div>
 					</div>
-				</div>
+				)}
 
 				<div className="select-container">
 					<Select

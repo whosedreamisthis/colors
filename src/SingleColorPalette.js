@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ColorBox from './ColorBox';
-
+import Navbar from './Navbar';
 export default function SingleColorPalette({ palette }) {
 	const { paletteId, colorId } = useParams();
+	const [format, setFormat] = useState('hex');
 
 	// Debugging the incoming palette prop
 	console.log('--- SingleColorPalette Render Start ---');
 	console.log('Incoming palette prop:', palette);
 	console.log('colorId param:', colorId);
-
+	function changeFormat(val) {
+		setFormat(val);
+		console.log(val);
+	}
 	const gatherShades = (p, ctf) => {
 		console.log('   gatherShades called. p:', p, 'ctf:', ctf);
 
@@ -93,7 +97,7 @@ export default function SingleColorPalette({ palette }) {
 					<ColorBox
 						key={color.hex}
 						name={color.name}
-						background={color.hex}
+						background={color[format]}
 						showLink={false}
 					/>
 			  ))
@@ -104,7 +108,7 @@ export default function SingleColorPalette({ palette }) {
 
 	return (
 		<div className="Palette">
-			<h1>Single Color Palette</h1>
+			<Navbar handleChange={changeFormat} />
 			<div className="Palette-colors">{colorBoxes}</div>
 		</div>
 		// <div className="SingleColorPalette">
