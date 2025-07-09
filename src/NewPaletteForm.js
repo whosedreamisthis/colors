@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm } from 'react-material-ui-form-validator';
-
+import styles from './NewPaletteForm.module.css';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSortable } from 'react-sortablejs';
@@ -134,6 +134,9 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 			<Drawer
 				sx={{
 					width: drawerWidth,
+					display: 'flex',
+					alignItems: 'center',
+
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
@@ -152,33 +155,35 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
-				<Typography variant="h4">Design Your Palette</Typography>
-				<div>
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={() => {
-							setColors([]);
-						}}
-					>
-						Clear Palette
-					</Button>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={addRandomColor}
-						disabled={paletteIsFull}
-					>
-						Random Color
-					</Button>
-				</div>
+				<div className={styles.container}>
+					<Typography variant="h4">Design Your Palette</Typography>
+					<div className={styles.buttons}>
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => {
+								setColors([]);
+							}}
+						>
+							Clear Palette
+						</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={addRandomColor}
+							disabled={paletteIsFull}
+						>
+							Random Color
+						</Button>
+					</div>
 
-				<ColorPickerForm
-					paletteIsFull={paletteIsFull}
-					addNewColor={addNewColor}
-					currentColor={currentColor}
-					setCurrentColor={setCurrentColor}
-				/>
+					<ColorPickerForm
+						paletteIsFull={paletteIsFull}
+						addNewColor={addNewColor}
+						currentColor={currentColor}
+						setCurrentColor={setCurrentColor}
+					/>
+				</div>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />{' '}

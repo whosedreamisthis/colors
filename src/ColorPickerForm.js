@@ -2,7 +2,7 @@ import React from 'react';
 import { ChromePicker } from 'react-color';
 import Button from '@mui/material/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
+import styles from './ColorPickerForm.module.css';
 export default function ColorPickerForm({
 	paletteIsFull,
 	addNewColor,
@@ -20,10 +20,20 @@ export default function ColorPickerForm({
 		console.log('New color selected:', newColor);
 	};
 	return (
-		<div>
+		<div
+			style={{
+				position: 'relative',
+				width: '100%',
+				paddingLeft: '30px',
+				paddingRight: '30px',
+			}}
+		>
 			<ChromePicker
 				color={currentColor}
 				onChangeComplete={handleColorChangeComplete}
+				className={styles.picker}
+				width="100%"
+				style={{ width: '100%' }}
 			/>
 			<ValidatorForm
 				onSubmit={() => {
@@ -32,6 +42,7 @@ export default function ColorPickerForm({
 				}}
 			>
 				<TextValidator
+					className={styles.colorInput}
 					value={newColorName}
 					onChange={handleChange}
 					validators={[
@@ -46,6 +57,7 @@ export default function ColorPickerForm({
 					]}
 				/>
 				<Button
+					className={styles.addColor}
 					variant="contained"
 					style={{
 						backgroundColor: paletteIsFull ? 'grey' : currentColor,
