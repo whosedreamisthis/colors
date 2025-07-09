@@ -15,6 +15,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import styles from './PaletteFormNav.module.css';
+import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 400; // Define drawerWidth here as well if needed for AppBar styling
 
@@ -59,10 +60,7 @@ export default function PaletteFormNav({
 			ValidatorForm.removeValidationRule('isPaletteNameUnique');
 		};
 	}, [palettes]);
-	const handlePaletteNameChange = (e) => {
-		setNewPaletteName(e.target.value);
-		console.log('handle palette name change', e.target.value);
-	};
+
 	return (
 		<div className={styles.root}>
 			<CssBaseline />
@@ -96,45 +94,7 @@ export default function PaletteFormNav({
 							Create Palette
 						</Typography>
 					</Box>
-					<div className={styles.navButtons}>
-						<ValidatorForm
-							onSubmit={() => {
-								handleSubmit(newPaletteName);
-							}}
-						>
-							<div className={styles.savePaletteForm}>
-								<TextValidator
-									label="Palette Name"
-									value={newPaletteName}
-									name="newPaletteName"
-									onChange={handlePaletteNameChange}
-									validators={[
-										'required',
-										'isPaletteNameUnique',
-									]}
-									errorMessages={[
-										'Enter palette name',
-										'Name already used',
-									]}
-								/>
-								<Button
-									variant="contained"
-									color="primary"
-									type="submit"
-								>
-									Save Palette
-								</Button>
-								<Button
-									variant="contained"
-									color="secondary"
-									component={Link}
-									to="/"
-								>
-									Go Back
-								</Button>
-							</div>
-						</ValidatorForm>
-					</div>
+					<PaletteMetaForm handleSubmit={handleSubmit} />
 				</Toolbar>
 			</AppBar>
 		</div>
