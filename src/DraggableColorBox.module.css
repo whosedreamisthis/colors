@@ -5,10 +5,11 @@
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
-	margin-bottom: -3.5px;
+	box-sizing: border-box;
+	margin-top: -9px; /* margin-bottom: -3.5px; */
 }
 
-.root:hover svg {
+svg {
 	color: white;
 	transform: scale(1.5); /* Makes the SVG 10% bigger on hover */
 }

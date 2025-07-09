@@ -18,6 +18,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from './NewPaletteForm.module.css';
+import { ReactSortable } from 'react-sortablejs';
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -273,19 +274,25 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-
-				{colors.map((color) => {
-					return (
-						<DraggableColorBox
-							key={color.name}
-							color={color.color}
-							name={color.name}
-							onClick={() => {
-								removeColor(color.name);
-							}}
-						/>
-					);
-				})}
+				<ReactSortable
+					tag="div"
+					list={colors}
+					setList={setColors}
+					style={{ height: '100%' }}
+				>
+					{colors.map((color) => {
+						return (
+							<DraggableColorBox
+								key={color.name}
+								color={color.color}
+								name={color.name}
+								onClick={() => {
+									removeColor(color.name);
+								}}
+							/>
+						);
+					})}
+				</ReactSortable>
 			</Main>
 		</Box>
 	);
