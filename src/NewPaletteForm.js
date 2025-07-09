@@ -1,26 +1,24 @@
 // NewPaletteForm.js
 
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { styled, useTheme, ThemeProvider } from '@mui/material/styles';
+
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar'; // Import MuiAppBar for base AppBar
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { ChromePicker } from 'react-color';
 import Button from '@mui/material/Button';
 import DraggableColorBox from './DraggableColorBox';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { useSearchParams } from 'react-router-dom';
+import { ValidatorForm } from 'react-material-ui-form-validator';
+
 import { useNavigate } from 'react-router-dom';
-import styles from './NewPaletteForm.module.css';
+
 import { ReactSortable } from 'react-sortablejs';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
