@@ -77,7 +77,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-export default function NewPaletteForm({ savePalette, palettes }) {
+export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
+	console.log('max colors', maxColors);
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
@@ -164,6 +165,16 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 	const removeColor = (colorName) => {
 		setColors(colors.filter((color) => color.name != colorName));
 	};
+
+	const addRandomColor = () => {
+		const allColors = palettes.map((p) => p.colors).flat();
+		var rand = Math.floor(Math.random() * allColors.length);
+		const randomColor = allColors[rand];
+		setColors([...colors, randomColor]);
+	};
+
+	const paletteIsFull = colors.length >= maxColors;
+	console.log(paletteIsFull, maxColors, colors.length);
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -246,7 +257,12 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 					>
 						Clear Palette
 					</Button>
-					<Button variant="contained" color="primary">
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={addRandomColor}
+						disabled={paletteIsFull}
+					>
 						Random Color
 					</Button>
 				</div>
@@ -271,10 +287,15 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 					/>
 					<Button
 						variant="contained"
-						style={{ backgroundColor: currentColor }}
+						style={{
+							backgroundColor: paletteIsFull
+								? 'grey'
+								: currentColor,
+						}}
 						type="submit"
+						disabled={paletteIsFull}
 					>
-						Add Color
+						{paletteIsFull ? 'Palette Full' : 'Add Color'}
 					</Button>
 				</ValidatorForm>
 			</Drawer>

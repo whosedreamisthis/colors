@@ -54,6 +54,7 @@ function App() {
 					<NewPaletteForm
 						savePalette={savePalette}
 						palettes={palettes}
+						maxColors={20}
 					/>
 				}
 			/>
