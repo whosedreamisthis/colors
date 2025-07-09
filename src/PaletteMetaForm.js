@@ -24,16 +24,12 @@ export default function PaletteMetaForm({ palettes, handleSubmit }) {
 		setOpen(false);
 	};
 	return (
-		<div className={styles.buttons}>
-			<Button variant="outlined" onClick={handleClickOpen}>
-				Open form dialog
-			</Button>
+		<div>
 			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Subscribe</DialogTitle>
+				<DialogTitle>Choose a Palette Name</DialogTitle>
 				<DialogContent sx={{ paddingBottom: 0 }}>
 					<DialogContentText>
-						To subscribe to this website, please enter your email
-						address here. We will send updates occasionally.
+						Please enter a unique name for your new palette.
 					</DialogContentText>
 					<ValidatorForm
 						onSubmit={() => {
@@ -42,8 +38,10 @@ export default function PaletteMetaForm({ palettes, handleSubmit }) {
 					>
 						<div className={styles.savePaletteForm}>
 							<TextValidator
+								style={{ margin: '10px' }}
 								label="Palette Name"
 								value={newPaletteName}
+								fullWidth
 								name="newPaletteName"
 								onChange={handlePaletteNameChange}
 								validators={['required', 'isPaletteNameUnique']}
@@ -52,6 +50,9 @@ export default function PaletteMetaForm({ palettes, handleSubmit }) {
 									'Name already used',
 								]}
 							/>
+						</div>
+						<DialogActions style={{ marginBottom: '10px' }}>
+							<Button onClick={handleClose}>Cancel</Button>
 							<Button
 								variant="contained"
 								color="primary"
@@ -59,22 +60,23 @@ export default function PaletteMetaForm({ palettes, handleSubmit }) {
 							>
 								Save Palette
 							</Button>
-						</div>
-						<DialogActions>
-							<Button onClick={handleClose}>Cancel</Button>
-							<Button type="submit">Subscribe</Button>
 						</DialogActions>
 					</ValidatorForm>
 				</DialogContent>
 			</Dialog>
-			<Button
-				variant="contained"
-				color="secondary"
-				component={Link}
-				to="/"
-			>
-				Go Back
-			</Button>
+			<div className={styles.buttons}>
+				<Button variant="contained" onClick={handleClickOpen}>
+					Save
+				</Button>
+				<Button
+					variant="contained"
+					color="secondary"
+					component={Link}
+					to="/"
+				>
+					Go Back
+				</Button>
+			</div>
 		</div>
 	);
 }

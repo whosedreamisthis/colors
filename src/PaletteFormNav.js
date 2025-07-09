@@ -49,6 +49,7 @@ export default function PaletteFormNav({
 	palettes,
 }) {
 	const [newPaletteName, setNewPaletteName] = React.useState('');
+	const [formShowing, setFormShowing] = React.useState(true);
 	useEffect(() => {
 		ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
 			return palettes.every(
@@ -94,7 +95,9 @@ export default function PaletteFormNav({
 							Create Palette
 						</Typography>
 					</Box>
-					<PaletteMetaForm handleSubmit={handleSubmit} />
+					{formShowing && (
+						<PaletteMetaForm handleSubmit={handleSubmit} />
+					)}
 				</Toolbar>
 			</AppBar>
 		</div>
