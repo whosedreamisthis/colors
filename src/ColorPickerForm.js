@@ -44,6 +44,8 @@ export default function ColorPickerForm({
 				<TextValidator
 					className={styles.colorInput}
 					value={newColorName}
+					variant="filled"
+					placeholder="Color Name"
 					onChange={handleChange}
 					validators={[
 						'required',

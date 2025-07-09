@@ -1,4 +1,6 @@
-.buttons {
+.button {
+	width: 49%;
+	/* margin: 10px; */
 }
 
 .container {
@@ -8,4 +10,9 @@
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+}
+
+.buttons {
+	width: 87%;
+	/* background-color: pink; */
 }

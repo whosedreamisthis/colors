@@ -156,9 +156,12 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 				</DrawerHeader>
 				<Divider />
 				<div className={styles.container}>
-					<Typography variant="h4">Design Your Palette</Typography>
+					<Typography variant="h4" gutterBottom>
+						Design Your Palette
+					</Typography>
 					<div className={styles.buttons}>
 						<Button
+							className={styles.button}
 							variant="contained"
 							color="secondary"
 							onClick={() => {
@@ -169,6 +172,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 						</Button>
 						<Button
 							variant="contained"
+							className={styles.button}
 							color="primary"
 							onClick={addRandomColor}
 							disabled={paletteIsFull}
