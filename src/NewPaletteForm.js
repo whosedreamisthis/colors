@@ -1,11 +1,9 @@
 // NewPaletteForm.js
 
 import * as React from 'react';
-
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar'; // Import MuiAppBar for base AppBar
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -133,30 +131,6 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	console.log(paletteIsFull, maxColors, colors.length);
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<CssBaseline />
-			{/* The main AppBar for the layout, containing the menu icon */}
-			<AppBar position="fixed" open={open} color="default">
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						sx={[
-							{
-								mr: 2,
-							},
-							open && { display: 'none' },
-						]}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" noWrap component="div">
-						Create Palette
-					</Typography>
-				</Toolbar>
-			</AppBar>
-
 			<Drawer
 				sx={{
 					width: drawerWidth,
@@ -172,7 +146,9 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 			>
 				<DrawerHeader>
 					<IconButton onClick={handleDrawerClose}>
-						<ChevronLeftIcon />
+						<ChevronLeftIcon
+							style={{ color: 'rgba(0, 0, 0, 0.5)' }}
+						/>
 					</IconButton>
 				</DrawerHeader>
 				<Divider />

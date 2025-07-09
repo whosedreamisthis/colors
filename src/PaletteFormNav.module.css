@@ -18,3 +18,16 @@
 	justify-content: space-between;
 	gap: 10px;
 }
+
+.navButtons {
+}
+
+.AppBar {
+	flex-direction: row;
+	justify-content: space-between;
+	height: 64px;
+}
+
+.root {
+	display: flex;
+}
