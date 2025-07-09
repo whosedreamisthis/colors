@@ -36,9 +36,13 @@ export default function PaletteFormNav({
 					palette.paletteName.toLowerCase() !== value.toLowerCase()
 			);
 		});
-	}, []);
+		return () => {
+			ValidatorForm.removeValidationRule('isPaletteNameUnique');
+		};
+	}, [palettes]);
 	const handlePaletteNameChange = (e) => {
 		setNewPaletteName(e.target.value);
+		console.log('handle palette name change', e.target.value);
 	};
 	return (
 		<div>

@@ -147,7 +147,6 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 		return () => {
 			ValidatorForm.removeValidationRule('isColorNameUnique');
 			ValidatorForm.removeValidationRule('isColorUnique');
-			ValidatorForm.removeValidationRule('isPaletteNameUnique');
 		};
 	}, [colors, currentColor]); // Dependencies: re-add rules if colors or currentColor change
 
