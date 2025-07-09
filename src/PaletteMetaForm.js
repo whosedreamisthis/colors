@@ -9,19 +9,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import styles from './PaletteMetaForm.module.css';
-export default function PaletteMetaForm({ palettes, handleSubmit }) {
-	const [open, setOpen] = React.useState(false);
+export default function PaletteMetaForm({
+	open,
+	palettes,
+	handleSubmit,
+	hideForm,
+}) {
 	const [newPaletteName, setNewPaletteName] = React.useState('');
 	const handlePaletteNameChange = (e) => {
 		setNewPaletteName(e.target.value);
 		console.log('handle palette name change', e.target.value);
 	};
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
+	// const handleClickOpen = () => {
+	// 	setOpen(true);
+	// };
 
 	const handleClose = () => {
-		setOpen(false);
+		// setOpen(false);
+		hideForm();
 	};
 	return (
 		<div>
@@ -64,19 +69,6 @@ export default function PaletteMetaForm({ palettes, handleSubmit }) {
 					</ValidatorForm>
 				</DialogContent>
 			</Dialog>
-			<div className={styles.buttons}>
-				<Button variant="contained" onClick={handleClickOpen}>
-					Save
-				</Button>
-				<Button
-					variant="contained"
-					color="secondary"
-					component={Link}
-					to="/"
-				>
-					Go Back
-				</Button>
-			</div>
 		</div>
 	);
 }

@@ -49,7 +49,7 @@ export default function PaletteFormNav({
 	palettes,
 }) {
 	const [newPaletteName, setNewPaletteName] = React.useState('');
-	const [formShowing, setFormShowing] = React.useState(true);
+	const [formShowing, setFormShowing] = React.useState(false);
 	useEffect(() => {
 		ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
 			return palettes.every(
@@ -61,7 +61,12 @@ export default function PaletteFormNav({
 			ValidatorForm.removeValidationRule('isPaletteNameUnique');
 		};
 	}, [palettes]);
-
+	const handleClickSave = () => {
+		setFormShowing(true);
+	};
+	const hideForm = () => {
+		setFormShowing(false);
+	};
 	return (
 		<div className={styles.root}>
 			<CssBaseline />
@@ -95,8 +100,25 @@ export default function PaletteFormNav({
 							Create Palette
 						</Typography>
 					</Box>
+					<div className={styles.buttons}>
+						<Button variant="contained" onClick={handleClickSave}>
+							Save
+						</Button>
+						<Button
+							variant="contained"
+							color="secondary"
+							component={Link}
+							to="/"
+						>
+							Go Back
+						</Button>
+					</div>
 					{formShowing && (
-						<PaletteMetaForm handleSubmit={handleSubmit} />
+						<PaletteMetaForm
+							handleSubmit={handleSubmit}
+							open={formShowing}
+							hideForm={hideForm}
+						/>
 					)}
 				</Toolbar>
 			</AppBar>
