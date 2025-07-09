@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { styled, useTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -19,6 +20,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from './NewPaletteForm.module.css';
 import { ReactSortable } from 'react-sortablejs';
+import PaletteFormNav from './PaletteFormNav';
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -84,7 +86,6 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
 	const [colors, setColors] = React.useState(palettes[0].colors);
 	const [newColorName, setNewColorName] = React.useState('');
-	const [newPaletteName, setNewPaletteName] = React.useState('');
 	const navigate = useNavigate();
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -108,11 +109,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 		setNewColorName(e.target.value);
 	};
 
-	const handlePaletteNameChange = (e) => {
-		setNewPaletteName(e.target.value);
-	};
-	const handleSubmit = () => {
-		console.log('handlesubmit', newPaletteName);
+	const handleSubmit = (newPaletteName) => {
 		const newPalette = {
 			paletteName: newPaletteName,
 			colors: colors,
@@ -146,14 +143,6 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 			});
 		});
 
-		ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
-			// Corrected: 'colors' refers to the state variable
-			return palettes.every(
-				(palette) =>
-					palette.paletteName.toLowerCase() !== value.toLowerCase()
-			);
-		});
-
 		// Cleanup function (optional, but good practice if rules might change)
 		return () => {
 			ValidatorForm.removeValidationRule('isColorNameUnique');
@@ -177,56 +166,12 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	console.log(paletteIsFull, maxColors, colors.length);
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<CssBaseline />
-			<AppBar position="fixed" open={open} color="default">
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						sx={[
-							{
-								mr: 2,
-							},
-							open && { display: 'none' },
-						]}
-					>
-						<MenuIcon />
-					</IconButton>
-					<div className={styles.newPaletteHeader}>
-						<Typography variant="h6" noWrap component="div">
-							Persistent drawer
-						</Typography>
-
-						<ValidatorForm onSubmit={handleSubmit}>
-							<div className={styles.savePaletteForm}>
-								<TextValidator
-									label="Palatte Name"
-									value={newPaletteName}
-									name="newPaletteName"
-									onChange={handlePaletteNameChange}
-									validators={[
-										'required',
-										'isPaletteNameUnique',
-									]}
-									errorMessages={[
-										'Enter palette name',
-										'Name already used',
-									]}
-								/>
-								<Button
-									variant="contained"
-									color="primary"
-									type="submit"
-								>
-									Save Palette
-								</Button>
-							</div>
-						</ValidatorForm>
-					</div>
-				</Toolbar>
-			</AppBar>
+			<PaletteFormNav
+				open={open}
+				handleDrawerOpen={handleDrawerOpen}
+				handleSubmit={handleSubmit}
+				palettes={palettes}
+			/>
 			<Drawer
 				sx={{
 					width: drawerWidth,
