@@ -101,7 +101,11 @@ export default function PaletteFormNav({
 						</Typography>
 					</Box>
 					<div className={styles.buttons}>
-						<Button variant="contained" onClick={handleClickSave}>
+						<Button
+							className={styles.saveButton}
+							variant="contained"
+							onClick={handleClickSave}
+						>
 							Save
 						</Button>
 						<Button

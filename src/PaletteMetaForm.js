@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import styles from './PaletteMetaForm.module.css';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 export default function PaletteMetaForm({
 	open,
 	palettes,
@@ -24,18 +26,25 @@ export default function PaletteMetaForm({
 	// 	setOpen(true);
 	// };
 
-	const handleClose = () => {
-		// setOpen(false);
-		hideForm();
-	};
 	return (
 		<div>
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog open={open} onClose={hideForm}>
 				<DialogTitle>Choose a Palette Name</DialogTitle>
 				<DialogContent sx={{ paddingBottom: 0 }}>
 					<DialogContentText>
 						Please enter a unique name for your new palette.
 					</DialogContentText>
+					<Picker
+						onSelect={(emoji) => {
+							console.log('Selected emoji:', emoji.native);
+							// You might want to update the palette name with the emoji
+							// setNewPaletteName(prevName => prevName + emoji.native);
+						}}
+						set="apple" // Choose your preferred emoji set
+						title="Pick your emoji..." // Optional title
+						showPreview={false} // Hide the emoji preview at the bottom
+						showSkinTones={false}
+					/>
 					<ValidatorForm
 						onSubmit={() => {
 							handleSubmit(newPaletteName);
@@ -57,7 +66,7 @@ export default function PaletteMetaForm({
 							/>
 						</div>
 						<DialogActions style={{ marginBottom: '10px' }}>
-							<Button onClick={handleClose}>Cancel</Button>
+							<Button onClick={hideForm}>Cancel</Button>
 							<Button
 								variant="contained"
 								color="primary"

@@ -31,3 +31,7 @@
 .root {
 	display: flex;
 }
+
+.saveButton {
+	margin-right: 10px;
+}
