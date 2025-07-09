@@ -18,6 +18,7 @@ export default function PaletteMetaForm({
 	hideForm,
 }) {
 	const [newPaletteName, setNewPaletteName] = React.useState('');
+	const [stage, setStage] = React.useState('form');
 	const handlePaletteNameChange = (e) => {
 		setNewPaletteName(e.target.value);
 		console.log('handle palette name change', e.target.value);
@@ -25,31 +26,37 @@ export default function PaletteMetaForm({
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
 	// };
+	const showEmojiPicker = () => {
+		setStage('emoji');
+		// handleSubmit(newPaletteName);
+	};
 
+	const savePalette = (emoji) => {
+		const newPalette = { paletteName: newPaletteName, emoji: emoji.native };
+
+		handleSubmit(newPalette);
+	};
 	return (
 		<div>
-			<Dialog open={open} onClose={hideForm}>
+			<Dialog open={stage === 'emoji'} onClose={hideForm}>
+				<DialogTitle>Choose a Palette Emoji</DialogTitle>
+
+				<Picker
+					onSelect={savePalette}
+					set="apple" // Choose your preferred emoji set
+					// title="Pick your emoji" // Optional title
+					// showPreview={false} // Hide the emoji preview at the bottom
+					// showSkinTones={false}
+				/>
+			</Dialog>
+			<Dialog open={stage === 'form'} onClose={hideForm}>
 				<DialogTitle>Choose a Palette Name</DialogTitle>
 				<DialogContent sx={{ paddingBottom: 0 }}>
 					<DialogContentText>
 						Please enter a unique name for your new palette.
 					</DialogContentText>
-					<Picker
-						onSelect={(emoji) => {
-							console.log('Selected emoji:', emoji.native);
-							// You might want to update the palette name with the emoji
-							// setNewPaletteName(prevName => prevName + emoji.native);
-						}}
-						set="apple" // Choose your preferred emoji set
-						title="Pick your emoji..." // Optional title
-						showPreview={false} // Hide the emoji preview at the bottom
-						showSkinTones={false}
-					/>
-					<ValidatorForm
-						onSubmit={() => {
-							handleSubmit(newPaletteName);
-						}}
-					>
+
+					<ValidatorForm onSubmit={showEmojiPicker}>
 						<div className={styles.savePaletteForm}>
 							<TextValidator
 								style={{ margin: '10px' }}

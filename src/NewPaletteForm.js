@@ -89,12 +89,10 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 		setColors([...colors, newColor]);
 	};
 
-	const handleSubmit = (newPaletteName) => {
-		const newPalette = {
-			paletteName: newPaletteName,
-			colors: colors,
-			id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-		};
+	const handleSubmit = (newPalette) => {
+		newPalette.colors = colors;
+		newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
+
 		savePalette(newPalette);
 		navigate('/');
 	};
