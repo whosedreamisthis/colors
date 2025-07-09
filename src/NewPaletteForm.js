@@ -75,12 +75,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-export default function NewPaletteForm({ savePalette }) {
+export default function NewPaletteForm({ savePalette, palettes }) {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
 	const [colors, setColors] = React.useState([]);
-	const [newName, setNewName] = React.useState('');
+	const [newColorName, setNewColorName] = React.useState('');
+	const [newPaletteName, setNewPaletteName] = React.useState('');
 	const navigate = useNavigate();
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -95,22 +96,24 @@ export default function NewPaletteForm({ savePalette }) {
 		console.log('New color selected:', newColor);
 	};
 	const addNewColor = () => {
-		const newColor = { color: currentColor, name: newName };
+		const newColor = { color: currentColor, name: newColorName };
 		setColors([...colors, newColor]);
-		setNewName('');
+		setNewColorName('');
 	};
 
 	const handleChange = (e) => {
-		setNewName(e.target.value);
+		setNewColorName(e.target.value);
 	};
 
+	const handlePaletteNameChange = (e) => {
+		setNewPaletteName(e.target.value);
+	};
 	const handleSubmit = () => {
-		let newName = 'New passed palette';
-
+		console.log('handlesubmit', newPaletteName);
 		const newPalette = {
-			paletteName: 'testNewPalette',
+			paletteName: newPaletteName,
 			colors: colors,
-			id: newName.toLowerCase().replace(/ /g, '-'),
+			id: newPaletteName.toLowerCase().replace(/ /g, '-'),
 		};
 		savePalette(newPalette);
 		navigate('/');
@@ -140,10 +143,19 @@ export default function NewPaletteForm({ savePalette }) {
 			});
 		});
 
+		ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
+			// Corrected: 'colors' refers to the state variable
+			return palettes.every(
+				(palette) =>
+					palette.paletteName.toLowerCase() !== value.toLowerCase()
+			);
+		});
+
 		// Cleanup function (optional, but good practice if rules might change)
 		return () => {
 			ValidatorForm.removeValidationRule('isColorNameUnique');
 			ValidatorForm.removeValidationRule('isColorUnique');
+			ValidatorForm.removeValidationRule('isPaletteNameUnique');
 		};
 	}, [colors, currentColor]); // Dependencies: re-add rules if colors or currentColor change
 
@@ -169,13 +181,27 @@ export default function NewPaletteForm({ savePalette }) {
 					<Typography variant="h6" noWrap component="div">
 						Persistent drawer
 					</Typography>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmit}
-					>
-						Save Palette
-					</Button>
+
+					<ValidatorForm onSubmit={handleSubmit}>
+						<TextValidator
+							label="Palatte Name"
+							value={newPaletteName}
+							name="newPaletteName"
+							onChange={handlePaletteNameChange}
+							validators={['required', 'isPaletteNameUnique']}
+							errorMessages={[
+								'Enter palette name',
+								'Name already used.',
+							]}
+						/>
+						<Button
+							variant="contained"
+							color="primary"
+							type="submit"
+						>
+							Save Palette
+						</Button>
+					</ValidatorForm>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -212,7 +238,7 @@ export default function NewPaletteForm({ savePalette }) {
 				/>
 				<ValidatorForm onSubmit={addNewColor}>
 					<TextValidator
-						value={newName}
+						value={newColorName}
 						onChange={handleChange}
 						validators={[
 							'required',
