@@ -1,0 +1,20 @@
+.navContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+
+	background-color: red;
+}
+.newPaletteHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+
+	gap: 10px;
+}
+.savePaletteForm {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 10px;
+}

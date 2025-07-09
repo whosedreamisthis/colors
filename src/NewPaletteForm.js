@@ -1,10 +1,12 @@
+// NewPaletteForm.js
+
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { styled, useTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar'; // Import MuiAppBar for base AppBar
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -21,60 +23,51 @@ import { useNavigate } from 'react-router-dom';
 import styles from './NewPaletteForm.module.css';
 import { ReactSortable } from 'react-sortablejs';
 import PaletteFormNav from './PaletteFormNav';
+
 const drawerWidth = 400;
 
+// Corrected AppBar styled component to handle the transition
+const AppBar = styled(MuiAppBar, {
+	shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+	transition: theme.transitions.create(['margin', 'width'], {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	...(open && {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: `${drawerWidth}px`,
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	}),
+}));
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-	({ theme }) => ({
+	({ theme, open }) => ({
 		flexGrow: 1,
-		height: 'calc(100vh - 64px)',
-		padding: theme.spacing(3),
+		height: 'calc(100vh - 64px)', // Account for AppBar height
+		padding: theme.spacing(3), // Add padding for content
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
 		marginLeft: `-${drawerWidth}px`,
-		variants: [
-			{
-				props: ({ open }) => open,
-				style: {
-					transition: theme.transitions.create('margin', {
-						easing: theme.transitions.easing.easeOut,
-						duration: theme.transitions.duration.enteringScreen,
-					}),
-					marginLeft: 0,
-				},
-			},
-		],
+		...(open && {
+			transition: theme.transitions.create('margin', {
+				easing: theme.transitions.easing.easeOut,
+				duration: theme.transitions.duration.enteringScreen,
+			}),
+			marginLeft: 0,
+		}),
 	})
 );
-
-const AppBar = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme }) => ({
-	transition: theme.transitions.create(['margin', 'width'], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	variants: [
-		{
-			props: ({ open }) => open,
-			style: {
-				width: `calc(100% - ${drawerWidth}px)`,
-				marginLeft: `${drawerWidth}px`,
-				transition: theme.transitions.create(['margin', 'width'], {
-					easing: theme.transitions.easing.easeOut,
-					duration: theme.transitions.duration.enteringScreen,
-				}),
-			},
-		},
-	],
-}));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
 	...theme.mixins.toolbar,
 	justifyContent: 'flex-end',
 }));
@@ -82,11 +75,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	console.log('max colors', maxColors);
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(true);
-	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
+	const [open, setOpen] = React.useState(false); // Start with drawer closed
+	const [currentColor, setCurrentColor] = React.useState('teal');
 	const [colors, setColors] = React.useState(palettes[0].colors);
 	const [newColorName, setNewColorName] = React.useState('');
 	const navigate = useNavigate();
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -94,9 +88,9 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
 	const handleColorChangeComplete = (newColor) => {
-		// newColor object contains { hex, rgb, hsl, hsv }
-		setCurrentColor(newColor.hex); // Update state with the hex value
+		setCurrentColor(newColor.hex);
 		console.log('New color selected:', newColor);
 	};
 	const addNewColor = () => {
@@ -120,35 +114,21 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	};
 
 	React.useEffect(() => {
-		// Validation rule for unique color names
 		ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
-			// Corrected: 'colors' refers to the state variable
 			return colors.every(
 				({ name }) => name.toLowerCase() !== value.toLowerCase()
 			);
 		});
 
-		// Validation rule for unique color values (optional, but often useful)
 		ValidatorForm.addValidationRule('isColorUnique', (value) => {
-			// Converts current color object to a string for comparison
-			const currentColorString = `rgba(${currentColor.r},${currentColor.g},${currentColor.b},${currentColor.a})`;
-			return colors.every(({ color }) => {
-				// Assuming stored colors are also RGBA objects or hex strings
-				// const storedColorString =
-				// 	typeof color === 'string'
-				// 		? color
-				// 		: `rgba(${color.r},${color.g},${color.b},${color.a})`;
-				// return storedColorString !== currentColorString;
-				return color !== currentColor;
-			});
+			return colors.every(({ color }) => color !== currentColor);
 		});
 
-		// Cleanup function (optional, but good practice if rules might change)
 		return () => {
 			ValidatorForm.removeValidationRule('isColorNameUnique');
 			ValidatorForm.removeValidationRule('isColorUnique');
 		};
-	}, [colors, currentColor]); // Dependencies: re-add rules if colors or currentColor change
+	}, [colors, currentColor]);
 
 	const removeColor = (colorName) => {
 		setColors(colors.filter((color) => color.name != colorName));
@@ -165,12 +145,30 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	console.log(paletteIsFull, maxColors, colors.length);
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<PaletteFormNav
-				open={open}
-				handleDrawerOpen={handleDrawerOpen}
-				handleSubmit={handleSubmit}
-				palettes={palettes}
-			/>
+			<CssBaseline />
+			{/* The main AppBar for the layout, containing the menu icon */}
+			<AppBar position="fixed" open={open} color="default">
+				<Toolbar>
+					<IconButton
+						color="inherit"
+						aria-label="open drawer"
+						onClick={handleDrawerOpen}
+						edge="start"
+						sx={[
+							{
+								mr: 2,
+							},
+							open && { display: 'none' },
+						]}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography variant="h6" noWrap component="div">
+						Create Palette
+					</Typography>
+				</Toolbar>
+			</AppBar>
+
 			<Drawer
 				sx={{
 					width: drawerWidth,
@@ -244,7 +242,14 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 				</ValidatorForm>
 			</Drawer>
 			<Main open={open}>
-				<DrawerHeader />
+				<DrawerHeader />{' '}
+				{/* This pushes content below the top AppBar */}
+				<PaletteFormNav // This is your PaletteFormNav, which contains its own AppBar
+					open={open}
+					handleDrawerOpen={handleDrawerOpen} // Still pass this if PaletteFormNav needs to trigger the drawer open
+					handleSubmit={handleSubmit}
+					palettes={palettes}
+				/>
 				<ReactSortable
 					tag="div"
 					list={colors}
