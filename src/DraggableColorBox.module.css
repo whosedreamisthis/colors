@@ -7,3 +7,25 @@
 	cursor: pointer;
 	margin-bottom: -3.5px;
 }
+
+.root:hover svg {
+	color: white;
+	transform: scale(1.5); /* Makes the SVG 10% bigger on hover */
+}
+.boxContent {
+	position: absolute;
+	padding: 10px;
+	width: 100%;
+	left: 0px;
+	bottom: 0px;
+	color: rgba(0, 0, 0, 0.5);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 12px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.deleteIcon {
+	transition: all 0.1s ease-in-out; /* Smooth transition for the scale effect */
+}

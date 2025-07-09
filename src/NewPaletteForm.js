@@ -17,6 +17,7 @@ import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import styles from './NewPaletteForm.module.css';
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -178,30 +179,37 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap component="div">
-						Persistent drawer
-					</Typography>
+					<div className={styles.newPaletteHeader}>
+						<Typography variant="h6" noWrap component="div">
+							Persistent drawer
+						</Typography>
 
-					<ValidatorForm onSubmit={handleSubmit}>
-						<TextValidator
-							label="Palatte Name"
-							value={newPaletteName}
-							name="newPaletteName"
-							onChange={handlePaletteNameChange}
-							validators={['required', 'isPaletteNameUnique']}
-							errorMessages={[
-								'Enter palette name',
-								'Name already used.',
-							]}
-						/>
-						<Button
-							variant="contained"
-							color="primary"
-							type="submit"
-						>
-							Save Palette
-						</Button>
-					</ValidatorForm>
+						<ValidatorForm onSubmit={handleSubmit}>
+							<div className={styles.savePaletteForm}>
+								<TextValidator
+									label="Palatte Name"
+									value={newPaletteName}
+									name="newPaletteName"
+									onChange={handlePaletteNameChange}
+									validators={[
+										'required',
+										'isPaletteNameUnique',
+									]}
+									errorMessages={[
+										'Enter palette name',
+										'Name already used',
+									]}
+								/>
+								<Button
+									variant="contained"
+									color="primary"
+									type="submit"
+								>
+									Save Palette
+								</Button>
+							</div>
+						</ValidatorForm>
+					</div>
 				</Toolbar>
 			</AppBar>
 			<Drawer

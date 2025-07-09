@@ -1,0 +1,11 @@
+.newPaletteHeader {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.savePaletteForm {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
