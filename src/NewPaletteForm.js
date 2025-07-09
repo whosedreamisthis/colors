@@ -25,14 +25,14 @@ const drawerWidth = 400;
 // Corrected AppBar styled component to handle the transition
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})(({ theme, open, currentDrawerWidth }) => ({
 	transition: theme.transitions.create(['margin', 'width'], {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
 	}),
 	...(open && {
-		width: `calc(100% - ${drawerWidth}px)`,
-		marginLeft: `${drawerWidth}px`,
+		width: `calc(100% - ${currentDrawerWidth}px)`,
+		marginLeft: `${currentDrawerWidth}px`,
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
@@ -41,7 +41,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-	({ theme, open }) => ({
+	({ theme, open, currentDrawerWidth }) => ({
 		flexGrow: 1,
 		height: 'calc(100vh - 64px)', // Account for AppBar height
 		padding: theme.spacing(3), // Add padding for content
@@ -49,7 +49,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		marginLeft: `-${drawerWidth}px`,
+		marginLeft: `-${currentDrawerWidth}px`,
 		...(open && {
 			transition: theme.transitions.create('margin', {
 				easing: theme.transitions.easing.easeOut,
@@ -133,7 +133,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 		<Box sx={{ display: 'flex' }}>
 			<Drawer
 				sx={{
-					width: drawerWidth,
+					width: open ? drawerWidth : 0,
 					display: 'flex',
 					alignItems: 'center',
 
