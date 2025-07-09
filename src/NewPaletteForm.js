@@ -160,6 +160,9 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 		};
 	}, [colors, currentColor]); // Dependencies: re-add rules if colors or currentColor change
 
+	const removeColor = (colorName) => {
+		setColors(colors.filter((color) => color.name != colorName));
+	};
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -274,8 +277,12 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 				{colors.map((color) => {
 					return (
 						<DraggableColorBox
+							key={color.name}
 							color={color.color}
 							name={color.name}
+							onClick={() => {
+								removeColor(color.name);
+							}}
 						/>
 					);
 				})}
