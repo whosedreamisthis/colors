@@ -81,7 +81,7 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const [currentColor, setCurrentColor] = React.useState('teal'); // Initial color (purple hex)
-	const [colors, setColors] = React.useState([]);
+	const [colors, setColors] = React.useState(palettes[0].colors);
 	const [newColorName, setNewColorName] = React.useState('');
 	const [newPaletteName, setNewPaletteName] = React.useState('');
 	const navigate = useNavigate();
@@ -237,7 +237,13 @@ export default function NewPaletteForm({ savePalette, palettes }) {
 				<Divider />
 				<Typography variant="h4">Design Your Palette</Typography>
 				<div>
-					<Button variant="contained" color="secondary">
+					<Button
+						variant="contained"
+						color="secondary"
+						onClick={() => {
+							setColors([]);
+						}}
+					>
 						Clear Palette
 					</Button>
 					<Button variant="contained" color="primary">
