@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './MiniPalette.module.css';
+import styles from './MiniPalette.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 function MiniPalette({
 	paletteName,

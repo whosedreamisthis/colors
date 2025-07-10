@@ -9,11 +9,19 @@
 }
 
 .container {
-	width: 100%;
+	width: 50%;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
 	flex-wrap: wrap;
+}
+
+@media (max-width: $breakpoint-lg) {
+	.container {
+		width: 80%;
+		margin-left: 30px;
+		margin-right: 30px;
+	}
 }
 
 .nav {
@@ -35,6 +43,19 @@
 	display: grid;
 	grid-template-columns: repeat(3, 30%);
 	gap: 5%;
+}
+
+@media (max-width: $breakpoint-md) {
+	.palettes {
+		grid-template-columns: repeat(2, 50%);
+	}
+}
+
+@media (max-width: $breakpoint-xsm) {
+	.palettes {
+		grid-template-columns: repeat(1, 100%);
+		gap: 2%;
+	}
 }
 
 .linkNoUnderline {

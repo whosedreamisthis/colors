@@ -39,10 +39,3 @@
 	display: flex;
 	gap: 10px;
 }
-
-/* @media (max-width: $breakpoint-xsm) {
-	.buttons {
-		width: 25%;
-		height: 20%;
-	}
-} */
