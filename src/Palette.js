@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
-import './Palette.css';
+import './Palette.scss';
 function Palette({ palette }) {
 	const { paletteName, colors, emoji } = palette;
 	const [level, setLevel] = useState(500);
@@ -17,6 +17,7 @@ function Palette({ palette }) {
 				paletteId={palette.id}
 				colorId={color.id}
 				showLink={true}
+				showFullPalette={true}
 			/>
 		);
 	});

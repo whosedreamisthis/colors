@@ -1,3 +1,4 @@
+@import './styles/_variables.scss';
 .ColorBox {
 	width: 20%;
 	height: 25%;
@@ -8,8 +9,32 @@
 	/* margin-bottom: -3.5px; */
 	vertical-align: top;
 }
-.SingleColorPalette .ColorBox {
+
+// .ColorBox--large-width {
+// 	width: 50%;
+// }
+@media (max-width: $breakpoint-lg) {
+	.ColorBox {
+		width: 25%;
+		height: 20%;
+	}
+}
+@media (max-width: $breakpoint-md) {
+	.ColorBox {
+		width: 50%;
+		height: 10%;
+	}
+}
+@media (max-width: $breakpoint-xsm) {
+	.ColorBox {
+		width: 100%;
+		height: 5%;
+	}
+}
+
+.singleColorPalette {
 	height: 50%;
+	width: 20%;
 }
 .ColorBox.go-back {
 	background-color: black;

@@ -101,6 +101,7 @@ export default function SingleColorPalette({ palette }) {
 						name={color.name}
 						background={color[format]}
 						showLink={false}
+						showFullPalette={false}
 					/>
 			  ))
 			: []; // Provide an empty array fallback

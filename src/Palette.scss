@@ -1,0 +1,49 @@
+@import './styles/_variables.scss';
+.Palette {
+	height: 100vh;
+	overflow: hidden;
+}
+
+.Palette-colors {
+	height: 89%;
+}
+@media (max-width: $breakpoint-lg) {
+	.Palette-colors {
+		overflow: scroll; /* Allow scrolling on smaller screens */
+		overflow-x: hidden;
+	}
+}
+.Palette-footer {
+	background-color: white;
+	display: flex;
+	/* flex-direction: row; */
+	align-items: center !important;
+	justify-content: flex-end;
+	gap: 20px;
+	height: 5vh !important;
+	line-height: 5vh !important;
+	padding-bottom: 20px !important;
+	padding-right: 10px;
+	/* margin-bottom: 10rem; */
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Add a style for the palette name and emoji if they are direct text nodes or in spans */
+.Palette-footer > span,
+.Palette-footer {
+	/* Apply to the footer if the text is a direct child */
+	display: flex; /* Make the text/emoji themselves flex items */
+	align-items: center; /* Center their content vertically */
+	height: 100%;
+}
+
+.emoji {
+	font-size: 1.5rem;
+	/* margin: 0 1rem; */
+	align-items: center;
+	text-align: center;
+	padding-bottom: 4px;
+	text-decoration: none;
+	/* No specific changes needed here if the parent is flex */
+}

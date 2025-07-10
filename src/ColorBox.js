@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useClipboard } from 'use-clipboard-copy';
-import './ColorBox.css';
+import './ColorBox.scss';
 import chroma from 'chroma-js';
 export default function ColorBox({
 	name,
@@ -9,6 +9,7 @@ export default function ColorBox({
 	paletteId,
 	colorId,
 	showLink,
+	showFullPalette,
 }) {
 	const clipboard = useClipboard();
 	const [copied, setCopied] = useState(false);
@@ -26,7 +27,9 @@ export default function ColorBox({
 	return (
 		<div
 			style={{ background }}
-			className="ColorBox"
+			className={`ColorBox ${
+				showFullPalette ? '' : 'singleColorPalette'
+			}`}
 			onClick={() => changeCopyState()}
 		>
 			<div
