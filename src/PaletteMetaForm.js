@@ -9,8 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import styles from './PaletteMetaForm.module.css';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+import EmojiPicker from 'emoji-picker-react';
 export default function PaletteMetaForm({
 	open,
 	palettes,
@@ -32,7 +31,8 @@ export default function PaletteMetaForm({
 	};
 
 	const savePalette = (emoji) => {
-		const newPalette = { paletteName: newPaletteName, emoji: emoji.native };
+		console.log('emoji', emoji);
+		const newPalette = { paletteName: newPaletteName, emoji: emoji.emoji };
 
 		handleSubmit(newPalette);
 	};
@@ -40,14 +40,7 @@ export default function PaletteMetaForm({
 		<div>
 			<Dialog open={stage === 'emoji'} onClose={hideForm}>
 				<DialogTitle>Choose a Palette Emoji</DialogTitle>
-
-				<Picker
-					onSelect={savePalette}
-					set="apple" // Choose your preferred emoji set
-					// title="Pick your emoji" // Optional title
-					// showPreview={false} // Hide the emoji preview at the bottom
-					// showSkinTones={false}
-				/>
+				<EmojiPicker onEmojiClick={savePalette} />
 			</Dialog>
 			<Dialog open={stage === 'form'} onClose={hideForm}>
 				<DialogTitle>Choose a Palette Name</DialogTitle>

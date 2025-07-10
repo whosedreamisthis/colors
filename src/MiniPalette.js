@@ -55,7 +55,12 @@ function MiniPalette({
 			<div className={styles.colors}>{miniColorBoxes}</div>
 			<h5 className={styles.title}>
 				<span className={styles.paletteName}>{paletteName}</span>
-				<span className={styles.emoji}>{emoji}</span>
+				<span className={styles.emoji}>
+					{typeof emoji === 'object' && emoji !== null && emoji.emoji
+						? emoji.emoji // If it's an object with an 'emoji' property, use that
+						: emoji}{' '}
+					{/* Otherwise, assume it's already the string */}
+				</span>
 			</h5>
 		</div>
 	);
