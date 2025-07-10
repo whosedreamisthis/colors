@@ -44,7 +44,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 	({ theme, open, currentDrawerWidth }) => ({
 		flexGrow: 1,
 		height: 'calc(100vh - 64px)', // Account for AppBar height
-		padding: theme.spacing(3), // Add padding for content
+		padding: 0, // Add padding for content
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
@@ -187,7 +187,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 					/>
 				</div>
 			</Drawer>
-			<Main open={open}>
+			<Main open={open} className={styles.colorBoxesContainer}>
 				<DrawerHeader />{' '}
 				{/* This pushes content below the top AppBar */}
 				<PaletteFormNav // This is your PaletteFormNav, which contains its own AppBar
@@ -201,6 +201,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 					list={colors}
 					setList={setColors}
 					style={{ height: '100%' }}
+					className={styles.sortable}
 				>
 					{colors.map((color) => {
 						return (
