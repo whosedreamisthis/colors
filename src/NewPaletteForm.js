@@ -43,7 +43,7 @@ const AppBar = styled(MuiAppBar, {
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 	({ theme, open, currentDrawerWidth }) => ({
 		flexGrow: 1,
-		height: 'calc(100vh - 64px)', // Account for AppBar height
+		height: 'calc(100vh)', // Account for AppBar height
 		padding: 0, // Add padding for content
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
@@ -201,7 +201,6 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 					tag="div"
 					list={colors}
 					setList={setColors}
-					style={{ height: '100%' }}
 					className={styles.sortable}
 				>
 					{colors.map((color) => {
