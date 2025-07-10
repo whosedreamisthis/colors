@@ -1,3 +1,5 @@
+@import './styles/_variables.scss';
+
 .root {
 	background-color: blue;
 	height: 100vh;
@@ -7,7 +9,7 @@
 }
 
 .container {
-	width: 50%;
+	width: 100%;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;

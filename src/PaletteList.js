@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import MiniPalette from './MiniPalette';
-import styles from './PaletteList.module.css';
+import styles from './PaletteList.module.scss';
 export default class PaletteList extends Component {
 	render() {
 		const { palettes, deletePalette } = this.props;

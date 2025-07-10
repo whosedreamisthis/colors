@@ -40,9 +40,9 @@
 	gap: 10px;
 }
 
-@media (max-width: $breakpoint-xsm) {
+/* @media (max-width: $breakpoint-xsm) {
 	.buttons {
 		width: 25%;
 		height: 20%;
 	}
-}
+} */
