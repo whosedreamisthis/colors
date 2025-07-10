@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MiniPalette.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 function MiniPalette({
@@ -8,6 +8,8 @@ function MiniPalette({
 	colors,
 	handleClick,
 	deletePalette,
+	openDialog,
+	isDeleting,
 }) {
 	const [isFadingOut, setIsFadingOut] = useState(false);
 	const miniColorBoxes = colors.map((color) => {
@@ -19,9 +21,18 @@ function MiniPalette({
 			></div>
 		);
 	});
+	useEffect(() => {
+		if (isDeleting) {
+			setIsFadingOut(true); // Start the fade-out animation
+			const animationDuration = 500; // Match your CSS transition duration
+			setTimeout(() => {
+				deletePalette(id); // Call the actual delete function after animation
+			}, animationDuration);
+		}
+	}, [isDeleting, id, deletePalette]);
 	const onDeletePalette = (e) => {
 		e.preventDefault();
-		deletePalette();
+		openDialog(id);
 
 		// setIsFadingOut(true); // Start the fade-out animation
 		// // Set a timeout to call the actual deletePalette function

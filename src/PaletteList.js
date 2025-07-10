@@ -15,21 +15,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import styles from './PaletteList.module.scss';
 export default function PaletteList({ palettes, deletePalette }) {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+	const [deletingId, setDeletingId] = useState('');
+	const [paletteToFadeOut, setPaletteToFadeOut] = useState(''); // New state for the palette to fade out
 
-	const openDialog = () => {
+	const openDialog = (id) => {
 		setOpenDeleteDialog(true);
+		setDeletingId(id);
 	};
 	const closeDialog = () => {
 		setOpenDeleteDialog(false);
-	};
-	const handleDeleteClick = () => {
-		//onDeleteConfirm(); // Call the function to actually delete
-		//onClose(); // Close the dialog
+		setDeletingId('');
 	};
 
-	const handleCancelClick = () => {
-		//onClose(); // Just close the dialog
+	const handleConfirmDelete = () => {
+		setPaletteToFadeOut(deletingId); // Set the ID of the palette to start fading out
+		closeDialog(); // Close the dialog immediately
+		// The actual deletePalette(deletingId) call will now happen in MiniPalette's useEffect
 	};
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.container}>
@@ -46,8 +49,10 @@ export default function PaletteList({ palettes, deletePalette }) {
 						>
 							<MiniPalette
 								{...palette}
-								// deletePalette={deletePalette}
-								deletePalette={openDialog}
+								deletePalette={deletePalette}
+								// deletePalette={openDialog}
+								openDialog={openDialog}
+								isDeleting={paletteToFadeOut === palette.id}
 							/>
 						</Link>
 					))}
@@ -58,7 +63,12 @@ export default function PaletteList({ palettes, deletePalette }) {
 				<List>
 					<ListItem
 						button="true"
-						onClick={handleDeleteClick}
+						// onClick={() => {
+						// 	deletePalette(deletingId);
+						// 	setIsDeleting(true);
+						// 	closeDialog();
+						// }}
+						onClick={handleConfirmDelete}
 						style={{
 							cursor: 'pointer',
 						}}
