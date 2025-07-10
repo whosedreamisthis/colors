@@ -12,7 +12,8 @@
 }
 
 .root svg {
-	color: white;
+	color: rgba(0, 0, 0, 0.5);
+	width: 15px;
 	transform: scale(1.5); /* Makes the SVG 10% bigger on hover */
 }
 
@@ -51,5 +52,11 @@
 }
 
 .deleteIcon {
+	color: rgba(0, 0, 0, 0.5);
+	width: 15px;
 	transition: all 0.1s ease-in-out; /* Smooth transition for the scale effect */
+}
+
+.deleteIcon:hover {
+	color: white;
 }
