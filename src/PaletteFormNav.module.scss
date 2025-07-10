@@ -1,3 +1,5 @@
+@import './styles/_variables.scss';
+
 .navContainer {
 	display: flex;
 	flex-direction: row;
@@ -15,9 +17,6 @@
 	flex-direction: row;
 	justify-content: space-between;
 	gap: 10px;
-}
-
-.navButtons {
 }
 
 .AppBar {
@@ -39,4 +38,11 @@
 .buttons {
 	display: flex;
 	gap: 10px;
+}
+
+@media (max-width: $breakpoint-xsm) {
+	.buttons {
+		width: 25%;
+		height: 20%;
+	}
 }

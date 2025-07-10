@@ -9,7 +9,7 @@
 }
 @media (max-width: $breakpoint-lg) {
 	.Palette-colors {
-		overflow: scroll; /* Allow scrolling on smaller screens */
+		// overflow: scroll; /* Allow scrolling on smaller screens */
 		overflow-x: hidden;
 	}
 }

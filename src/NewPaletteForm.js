@@ -49,6 +49,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
+		overflow: 'hidden',
 		marginLeft: `-${currentDrawerWidth}px`,
 		...(open && {
 			transition: theme.transitions.create('margin', {
@@ -128,7 +129,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	const paletteIsFull = colors.length >= maxColors;
 	console.log(paletteIsFull, maxColors, colors.length);
 	return (
-		<Box sx={{ display: 'flex' }}>
+		<Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
 			<Drawer
 				sx={{
 					width: open ? drawerWidth : 0,
