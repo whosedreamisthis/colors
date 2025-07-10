@@ -28,13 +28,18 @@
 	font-size: 1rem;
 	position: relative;
 	padding-bottom: 13px;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 .emoji {
 	margin-bottom: 3px;
 	margin-left: 0.5rem;
 	font-size: 1.5rem;
+	text-decoration: none !important;
+}
+.paletteName {
+	text-decoration: none;
+	background-color: red;
 }
 
 .miniColor {

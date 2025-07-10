@@ -20,6 +20,7 @@
 	padding-right: 10px;
 	/* margin-bottom: 10rem; */
 	font-weight: bold;
+	text-decoration: none;
 }
 
 /* Add a style for the palette name and emoji if they are direct text nodes or in spans */
@@ -37,5 +38,6 @@
 	align-items: center;
 	text-align: center;
 	padding-bottom: 4px;
+	text-decoration: none;
 	/* No specific changes needed here if the parent is flex */
 }
