@@ -9,11 +9,17 @@
 	border: 1px solid black;
 	cursor: pointer;
 	// width: 100%;
+	opacity: 1;
+	transition: opacity 0.5s ease-out;
 }
 .root:hover svg {
 	opacity: 1;
 }
 
+.fadeOut {
+	/* New class for fade-out animation */
+	opacity: 0;
+}
 .colors {
 	background-color: '#dae1e4';
 	height: 150px;
@@ -52,9 +58,6 @@
 	margin: 0 auto;
 	position: relative;
 	margin-bottom: -3.5px;
-}
-
-.delete {
 }
 
 .deleteIcon {
