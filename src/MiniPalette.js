@@ -21,14 +21,15 @@ function MiniPalette({
 	});
 	const onDeletePalette = (e) => {
 		e.preventDefault();
-		setIsFadingOut(true); // Start the fade-out animation
+		deletePalette();
 
-		// Set a timeout to call the actual deletePalette function
-		// The duration should match the CSS transition duration
-		const animationDuration = 500; // 0.5s from CSS
-		setTimeout(() => {
-			deletePalette(id); // Call the parent's delete function
-		}, animationDuration);
+		// setIsFadingOut(true); // Start the fade-out animation
+		// // Set a timeout to call the actual deletePalette function
+		// // The duration should match the CSS transition duration
+		// const animationDuration = 500; // 0.5s from CSS
+		// setTimeout(() => {
+		// 	deletePalette(id); // Call the parent's delete function
+		// }, animationDuration);
 	};
 	return (
 		<div
