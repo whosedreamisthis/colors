@@ -28,6 +28,11 @@ function App() {
 
 		return <Palette palette={fullPalette} />;
 	}
+
+	const deletePalette = (id) => {
+		setPalettes(palettes.filter((palette) => palette.id !== id));
+		syncLocalStorage();
+	};
 	function findPalette(id) {
 		return palettes.find((palette) => palette.id === id);
 	}
@@ -69,7 +74,15 @@ function App() {
 					/>
 				}
 			/>
-			<Route path="/" element={<PaletteList palettes={palettes} />} />
+			<Route
+				path="/"
+				element={
+					<PaletteList
+						palettes={palettes}
+						deletePalette={deletePalette}
+					/>
+				}
+			/>
 			<Route path="/palette/:id" element={<PalettePage />} />
 
 			<Route

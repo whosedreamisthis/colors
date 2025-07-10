@@ -4,7 +4,7 @@ import MiniPalette from './MiniPalette';
 import styles from './PaletteList.module.css';
 export default class PaletteList extends Component {
 	render() {
-		const { palettes } = this.props;
+		const { palettes, deletePalette } = this.props;
 		return (
 			<div className={styles.root}>
 				<div className={styles.container}>
@@ -19,7 +19,10 @@ export default class PaletteList extends Component {
 								key={palette.paletteName}
 								to={`palette/${palette.id}`}
 							>
-								<MiniPalette {...palette} />
+								<MiniPalette
+									{...palette}
+									deletePalette={deletePalette}
+								/>
 							</Link>
 						))}
 					</div>

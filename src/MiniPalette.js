@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from './MiniPalette.module.css';
 import DeleteIcon from '@mui/icons-material/Delete';
-function MiniPalette({ paletteName, emoji, colors, handleClick }) {
+function MiniPalette({
+	paletteName,
+	emoji,
+	id,
+	colors,
+	handleClick,
+	deletePalette,
+}) {
 	const miniColorBoxes = colors.map((color) => {
 		return (
 			<div
@@ -11,14 +18,17 @@ function MiniPalette({ paletteName, emoji, colors, handleClick }) {
 			></div>
 		);
 	});
+	const onDeletePalette = (e) => {
+		e.preventDefault();
+		deletePalette(id);
+	};
 	return (
 		<div className={styles.root} onClick={handleClick}>
-			<div className={styles.delete}>
-				<DeleteIcon
-					className={styles.deleteIcon}
-					style={{ transition: 'all 0.1s ease-in-out' }}
-				/>
-			</div>
+			<DeleteIcon
+				className={styles.deleteIcon}
+				style={{ transition: 'all 0.1s ease-in-out' }}
+				onClick={onDeletePalette}
+			/>
 			<div className={styles.colors}>{miniColorBoxes}</div>
 			<h5 className={styles.title}>
 				<span className={styles.paletteName}>{paletteName}</span>
