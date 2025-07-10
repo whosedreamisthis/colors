@@ -1,11 +1,13 @@
 @import './styles/_variables.scss';
+// import bg from './styles/bg.svg';
 
 .root {
-	background-color: blue;
 	height: 100vh;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
+	background-color: #2a60e2;
+	background-image: url('./styles/bg.svg');
 }
 
 .container {
