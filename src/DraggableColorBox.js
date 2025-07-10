@@ -6,7 +6,11 @@ export default function DraggableColorBox({ color, name, onClick }) {
 		<div className={styles.root} style={{ backgroundColor: color }}>
 			<div className={styles.boxContent}>
 				<span>{name}</span>
-				<DeleteIcon onClick={onClick} className={styles.deleteIcon} />
+				<DeleteIcon
+					onClick={onClick}
+					className={styles.deleteIcon}
+					style={{ width: '20px' }}
+				/>
 			</div>
 		</div>
 	);
