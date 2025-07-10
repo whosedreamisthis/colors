@@ -38,7 +38,7 @@
 	text-decoration: none !important;
 }
 .paletteName {
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 .miniColor {

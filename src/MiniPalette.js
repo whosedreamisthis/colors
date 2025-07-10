@@ -14,12 +14,7 @@ function MiniPalette({ paletteName, emoji, colors, handleClick }) {
 		<div className={styles.root} onClick={handleClick}>
 			<div className={styles.colors}>{miniColorBoxes}</div>
 			<h5 className={styles.title}>
-				<span
-					className={styles.paletteName}
-					style={{ textDecoration: 'none !important' }}
-				>
-					{paletteName}
-				</span>
+				<span className={styles.paletteName}>{paletteName}</span>
 				<span className={styles.emoji}>{emoji}</span>
 			</h5>
 		</div>

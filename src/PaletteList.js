@@ -15,6 +15,7 @@ export default class PaletteList extends Component {
 					<div className={styles.palettes}>
 						{palettes.map((palette) => (
 							<Link
+								className={styles.linkNoUnderline}
 								key={palette.paletteName}
 								to={`palette/${palette.id}`}
 							>
