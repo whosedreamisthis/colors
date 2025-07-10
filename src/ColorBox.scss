@@ -10,13 +10,54 @@
 	vertical-align: top;
 }
 
+.ColorBox.go-back {
+	background-color: black;
+	color: white;
+	text-decoration: none;
+}
+
 // .ColorBox--large-width {
 // 	width: 50%;
 // }
+
+@media (min-width: $breakpoint-lg) {
+	.singleColorPalette {
+		height: 50%;
+		width: 20%;
+	}
+	.ColorBox.go-back {
+		width: 20%;
+		height: 50%;
+	}
+}
+
 @media (max-width: $breakpoint-lg) {
 	.ColorBox {
 		width: 25%;
 		height: 20%;
+	}
+	.singleColorPalette {
+		height: 33.33%;
+		width: 25%;
+	}
+	.ColorBox.go-back {
+		width: 75%;
+		height: 33.33%;
+	}
+}
+
+@media (max-width: $breakpoint-lg) {
+	.ColorBox {
+		width: 25%;
+		height: 20%;
+	}
+	.singleColorPalette {
+		height: 33.33%;
+		width: 25%;
+	}
+	.ColorBox.go-back {
+		width: 75%;
+		height: 33.33%;
 	}
 }
 @media (max-width: $breakpoint-md) {
@@ -24,23 +65,31 @@
 		width: 50%;
 		height: 10%;
 	}
+	.singleColorPalette {
+		height: 20%;
+		width: 50%;
+	}
+
+	.ColorBox.go-back {
+		width: 50%;
+		height: 20%;
+	}
 }
 @media (max-width: $breakpoint-xsm) {
 	.ColorBox {
 		width: 100%;
 		height: 5%;
 	}
+	.singleColorPalette {
+		height: 10%;
+		width: 100%;
+	}
+	.ColorBox.go-back {
+		width: 100%;
+		height: 10%;
+	}
 }
 
-.singleColorPalette {
-	height: 50%;
-	width: 20%;
-}
-.ColorBox.go-back {
-	background-color: black;
-	color: white;
-	text-decoration: none;
-}
 .copy-button,
 .back-button {
 	width: 100px;
