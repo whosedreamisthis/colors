@@ -5,9 +5,10 @@
 	position: relative;
 	overflow: hidden;
 	border: 1px solid black;
-}
-.root:hover {
 	cursor: pointer;
+}
+.root:hover svg {
+	opacity: 1;
 }
 
 .colors {
@@ -48,4 +49,21 @@
 	margin: 0 auto;
 	position: relative;
 	margin-bottom: -3.5px;
+}
+
+.delete {
+}
+
+.deleteIcon {
+	color: white;
+	background-color: #eb3d30;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 5px;
+	bottom: 1;
+	padding: 5px;
+	z-index: 10;
+	text-align: center;
+	opacity: 0;
 }

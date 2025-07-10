@@ -1,6 +1,5 @@
 {
 	"name": "colors-app",
-	"homepage": "https://whosedreamisthis.github.io/colors",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
