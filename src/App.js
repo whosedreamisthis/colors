@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import Palette from './Palette';
 import PaletteList from './PaletteList';
@@ -8,7 +8,9 @@ import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
 
 function App() {
-	const [palettes, setPalettes] = React.useState(seedColors);
+	const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
+
+	const [palettes, setPalettes] = React.useState(savedPalettes || seedColors);
 	function PalettePage() {
 		// useParams() is called INSIDE a component that is rendered BY a Route
 		const { id } = useParams();
@@ -43,9 +45,18 @@ function App() {
 		return <SingleColorPalette palette={generatedFullPalette} />;
 	}
 
+	useEffect(() => {
+		syncLocalStorage();
+	}, [palettes]);
+
 	function savePalette(newPalette) {
 		setPalettes([...palettes, newPalette]);
 	}
+
+	const syncLocalStorage = () => {
+		console.log('sync', palettes);
+		window.localStorage.setItem('palettes', JSON.stringify(palettes));
+	};
 	return (
 		<Routes>
 			<Route
