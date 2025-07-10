@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import './Navbar.css';
+import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -42,14 +42,14 @@ class Navbar extends Component {
 		);
 
 		return (
-			<header className="Navbar">
-				<div className="logo">
-					<Link to="/">reactcolorpicker</Link>
+			<header className={styles.Navbar}>
+				<div className={styles.logo}>
+					<Link to="/">colors</Link>
 				</div>
 				{level && (
-					<div className="slider-container">
+					<div className={styles.sliderContainer}>
 						<span>Level: {level}</span>
-						<div className="slider">
+						<div className={styles.slider}>
 							<Slider
 								defaultValue={level}
 								min={100}
@@ -61,7 +61,7 @@ class Navbar extends Component {
 					</div>
 				)}
 
-				<div className="select-container">
+				<div className={styles.selectContainer}>
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './DraggableColorBox.module.css';
+import styles from './DraggableColorBox.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 export default function DraggableColorBox({ color, name, onClick }) {
 	return (

@@ -1,3 +1,5 @@
+@import './styles/_variables.scss';
+
 .Navbar {
 	display: flex;
 	flex-direction: row;
@@ -6,15 +8,21 @@
 	height: 6vh;
 }
 
-.slider-container {
+.sliderContainer {
+	margin-left: 10px;
 }
 
 .slider {
 	width: 340px;
-	margin: 0 10px;
+	margin: 0 30px;
+
 	display: inline-block;
 }
-
+@media (max-width: $breakpoint-sm) {
+	.slider {
+		width: 150px;
+	}
+}
 .rc-slider-track {
 	background-color: transparent;
 }
@@ -53,7 +61,14 @@
 	color: black;
 }
 
-.select-container {
+.selectContainer {
 	margin-left: auto;
 	margin-right: 1rem;
+}
+
+@media (max-width: $breakpoint-lg) {
+	.Palette-colors {
+		overflow: scroll; /* Allow scrolling on smaller screens */
+		overflow-x: hidden;
+	}
 }
