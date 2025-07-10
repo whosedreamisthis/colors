@@ -6,8 +6,10 @@
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
+	// background by SVGBackgrounds.com
 	background-color: #2a60e2;
 	background-image: url('./styles/bg.svg');
+	overflow: scroll;
 }
 
 .container {
@@ -62,4 +64,8 @@
 
 .linkNoUnderline {
 	text-decoration: none !important;
+}
+
+.heading {
+	font-size: 2rem;
 }

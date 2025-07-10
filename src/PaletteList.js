@@ -9,7 +9,7 @@ export default class PaletteList extends Component {
 			<div className={styles.root}>
 				<div className={styles.container}>
 					<nav className={styles.nav}>
-						<h1>React Colors</h1>
+						<h1 className={styles.heading}>React Colors</h1>
 						<Link to="/palette/new">Create Palette</Link>
 					</nav>
 					<div className={styles.palettes}>
