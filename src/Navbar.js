@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import styles from './Navbar.module.scss';
+import styles from './styles/Navbar.module.scss';
 import { Link } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';

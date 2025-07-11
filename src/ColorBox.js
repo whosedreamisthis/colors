@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useClipboard } from 'use-clipboard-copy';
-import './ColorBox.scss';
+import './styles/ColorBox.scss';
 import chroma from 'chroma-js';
 export default function ColorBox({
 	name,

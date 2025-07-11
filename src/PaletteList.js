@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-import styles from './PaletteList.module.scss';
+import styles from './styles/PaletteList.module.scss';
 const PaletteList = memo(function PaletteList({ palettes, deletePalette }) {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 	const [deletingId, setDeletingId] = useState('');

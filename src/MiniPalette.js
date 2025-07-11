@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import styles from './MiniPalette.module.scss';
+import styles from './styles/MiniPalette.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 const MiniPalette = memo(function MiniPalette({
 	paletteName,

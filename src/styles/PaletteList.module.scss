@@ -1,4 +1,4 @@
-@import './styles/_variables.scss';
+@import './_variables.scss';
 // import bg from './styles/bg.svg';
 
 .root {
@@ -8,7 +8,7 @@
 	justify-content: center;
 	// background by SVGBackgrounds.com
 	background-color: #2a60e2;
-	background-image: url('./styles/bg.svg');
+	background-image: url('./bg.svg');
 	overflow: scroll;
 }
 

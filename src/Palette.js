@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
-import './Palette.scss';
+import './styles/Palette.scss';
 function Palette({ palette }) {
 	const { paletteName, colors, emoji } = palette;
 	const [level, setLevel] = useState(500);

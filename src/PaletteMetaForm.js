@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
-import styles from './PaletteMetaForm.module.css';
+import styles from './styles/PaletteMetaForm.module.css';
 import EmojiPicker from 'emoji-picker-react';
 export default function PaletteMetaForm({
 	open,

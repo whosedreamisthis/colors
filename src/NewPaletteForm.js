@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm } from 'react-material-ui-form-validator';
-import styles from './NewPaletteForm.module.css';
+import styles from './styles/NewPaletteForm.module.css';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSortable } from 'react-sortablejs';

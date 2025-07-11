@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import styles from './PaletteFormNav.module.css';
+import styles from './styles/PaletteFormNav.module.css';
 import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 400; // Define drawerWidth here as well if needed for AppBar styling
