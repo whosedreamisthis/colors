@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom';
 import { ReactSortable } from 'react-sortablejs';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+import seedColors from './seedColors';
+
 const drawerWidth = 400;
 
 // Corrected AppBar styled component to handle the transition
@@ -68,9 +70,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
-	console.log('max colors', maxColors);
+	console.log('seedColors[0].colors', seedColors[0].colors);
 	const [open, setOpen] = React.useState(false); // Start with drawer closed
-	const [colors, setColors] = React.useState(palettes[0].colors);
+	const [colors, setColors] = React.useState(seedColors[0].colors);
 	const [currentColor, setCurrentColor] = React.useState('teal');
 
 	const navigate = useNavigate();
@@ -84,6 +86,29 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	};
 
 	const addNewColor = (newColorName) => {
+		console.log('addNewColor called:');
+		console.log('  currentColor:', currentColor);
+		console.log('  newColorName:', newColorName);
+		if (!currentColor || typeof currentColor !== 'string') {
+			console.error(
+				'Attempted to add color with an invalid currentColor:',
+				currentColor
+			);
+			// Optionally, return early or set a default color
+			return;
+		}
+		if (
+			!newColorName ||
+			typeof newColorName !== 'string' ||
+			newColorName.trim() === ''
+		) {
+			console.error(
+				'Attempted to add color with an invalid newColorName:',
+				newColorName
+			);
+			// Optionally, return early or set a default name
+			return;
+		}
 		const newColor = { color: currentColor, name: newColorName };
 		setColors([...colors, newColor]);
 	};
@@ -118,7 +143,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	};
 
 	const addRandomColor = () => {
-		const allColors = palettes.map((p) => p.colors).flat();
+		const allColors = seedColors.map((p) => p.colors).flat();
 		var rand = Math.floor(Math.random() * allColors.length);
 		const randomColor = allColors[rand];
 		setColors([...colors, randomColor]);
@@ -202,6 +227,7 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 					className={styles.sortable}
 				>
 					{colors.map((color) => {
+						console.log(color);
 						return (
 							<DraggableColorBox
 								key={color.name}
