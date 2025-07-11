@@ -160,6 +160,15 @@ function App() {
 						element={<SingleColorPaletteWrapper />}
 					/>
 					<Route path="*" element={<h1>Page Not Found!</h1>} />
+
+					<Route
+						element={
+							<PaletteList
+								palettes={palettes}
+								deletePalette={deletePalette}
+							/>
+						}
+					/>
 				</Routes>
 			</motion.div>
 		</AnimatePresence>
