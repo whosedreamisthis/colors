@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import styles from './MiniPalette.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
-function MiniPalette({
+const MiniPalette = memo(function MiniPalette({
 	paletteName,
 	emoji,
 	id,
@@ -42,6 +42,7 @@ function MiniPalette({
 		// 	deletePalette(id); // Call the parent's delete function
 		// }, animationDuration);
 	};
+	console.log('RENDERING', paletteName);
 	return (
 		<div
 			className={`${styles.root} ${isFadingOut ? styles.fadeOut : ''}`}
@@ -64,6 +65,6 @@ function MiniPalette({
 			</h5>
 		</div>
 	);
-}
+});
 
 export default MiniPalette;

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
 import MiniPalette from './MiniPalette';
 import Dialog from '@mui/material/Dialog';
@@ -13,25 +13,25 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 import styles from './PaletteList.module.scss';
-export default function PaletteList({ palettes, deletePalette }) {
+const PaletteList = memo(function PaletteList({ palettes, deletePalette }) {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 	const [deletingId, setDeletingId] = useState('');
 	const [paletteToFadeOut, setPaletteToFadeOut] = useState(''); // New state for the palette to fade out
 
-	const openDialog = (id) => {
+	const openDialog = useCallback((id) => {
 		setOpenDeleteDialog(true);
 		setDeletingId(id);
-	};
-	const closeDialog = () => {
+	}, []); // Empty dependency array: this function never changes
+
+	const closeDialog = useCallback(() => {
 		setOpenDeleteDialog(false);
 		setDeletingId('');
-	};
+	}, []); // Empty dependency array: this function never changes
 
-	const handleConfirmDelete = () => {
-		setPaletteToFadeOut(deletingId); // Set the ID of the palette to start fading out
-		closeDialog(); // Close the dialog immediately
-		// The actual deletePalette(deletingId) call will now happen in MiniPalette's useEffect
-	};
+	const handleConfirmDelete = useCallback(() => {
+		setPaletteToFadeOut(deletingId);
+		closeDialog();
+	}, [deletingId, closeDialog]);
 
 	return (
 		<div className={styles.root}>
@@ -108,4 +108,5 @@ export default function PaletteList({ palettes, deletePalette }) {
 			</Dialog>
 		</div>
 	);
-}
+});
+export default PaletteList;

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useParams, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion'; // Import AnimatePresence and motion
 
@@ -77,11 +77,21 @@ function App() {
 
 		return <Palette palette={fullPalette} />;
 	}
+	const syncLocalStorage = useCallback(() => {
+		// Memoize syncLocalStorage
+		window.localStorage.setItem('palettes', JSON.stringify(palettes));
+	}, [palettes]);
 
-	const deletePalette = (id) => {
-		setPalettes(palettes.filter((palette) => palette.id !== id));
-		syncLocalStorage();
-	};
+	const deletePalette = useCallback(
+		(id) => {
+			setPalettes((prevPalettes) =>
+				prevPalettes.filter((palette) => palette.id !== id)
+			);
+			// syncLocalStorage will be called by the useEffect hook when palettes change
+		},
+		[] // No dependencies, as setPalettes with functional update doesn't need 'palettes' in its dependency array
+	);
+
 	function findPalette(id) {
 		return palettes.find((palette) => palette.id === id);
 	}
@@ -107,10 +117,6 @@ function App() {
 		setPalettes([...palettes, newPalette]);
 	}
 
-	const syncLocalStorage = () => {
-		console.log('sync', palettes);
-		window.localStorage.setItem('palettes', JSON.stringify(palettes));
-	};
 	return (
 		<AnimatePresence mode="popLayout">
 			{' '}
