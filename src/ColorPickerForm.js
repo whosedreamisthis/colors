@@ -13,7 +13,9 @@ export default function ColorPickerForm({
 }) {
 	const [newColorName, setNewColorName] = React.useState('');
 	const textColor =
-		chroma(currentColor).luminance() < 0.25 ? 'white' : 'black';
+		chroma(currentColor).luminance() < 0.25
+			? 'rgba(255,255,255,0.8)'
+			: 'rgba(0,0,0,0.6)';
 
 	const handleChange = (e) => {
 		setNewColorName(e.target.value);
@@ -40,6 +42,8 @@ export default function ColorPickerForm({
 				style={{ width: '100%' }}
 			/>
 			<ValidatorForm
+				instantValidate={false}
+				className={styles.colorPickerForm}
 				onSubmit={() => {
 					addNewColor(newColorName);
 					setNewColorName('');
