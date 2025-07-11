@@ -1,5 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, useParams, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion'; // Import AnimatePresence and motion
+
 import Palette from './Palette';
 import PaletteList from './PaletteList';
 import seedColors from './seedColors';
@@ -7,10 +9,57 @@ import { generatePalette } from './colorHelpers';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
 
+// const pageVariants = {
+// 	initial: {
+// 		opacity: 0,
+// 	},
+// 	in: {
+// 		opacity: 1,
+// 		transition: {
+// 			type: 'tween', // 'tween' for linear animation
+// 			ease: 'easeOut',
+// 			duration: 0.5, // 500ms
+// 		},
+// 	},
+// 	out: {
+// 		opacity: 0,
+// 		transition: {
+// 			type: 'tween',
+// 			ease: 'easeIn',
+// 			duration: 0.5, // 500ms
+// 		},
+// 	},
+// };
+const pageVariants = {
+	initial: {
+		opacity: 0,
+		x: '0%', // Starts off-screen to the right
+	},
+	in: {
+		opacity: 1,
+		x: '0%', // Slides in to its final position
+		transition: {
+			type: 'tween', // 'tween' for linear animation, 'spring' for bouncy
+			ease: 'easeOut',
+			duration: 0.25, // 500ms
+		},
+	},
+	out: {
+		opacity: 0,
+		x: '0%', // Slides out to the left
+		transition: {
+			type: 'tween',
+			ease: 'easeIn',
+			duration: 0.25, // 500ms
+		},
+	},
+};
+
 function App() {
 	const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
 
 	const [palettes, setPalettes] = React.useState(savedPalettes || seedColors);
+	const location = useLocation();
 	function PalettePage() {
 		// useParams() is called INSIDE a component that is rendered BY a Route
 		const { id } = useParams();
@@ -63,36 +112,51 @@ function App() {
 		window.localStorage.setItem('palettes', JSON.stringify(palettes));
 	};
 	return (
-		<Routes>
-			<Route
-				path="/palette/new"
-				element={
-					<NewPaletteForm
-						savePalette={savePalette}
-						palettes={palettes}
-						maxColors={20}
+		<AnimatePresence mode="popLayout">
+			{' '}
+			{/* 'wait' mode waits for the outgoing component to finish animating before the new one enters */}
+			{/* motion.div is the animated component.
+                The 'key' is crucial for AnimatePresence to detect when a component is added/removed.
+                The 'location.pathname' or 'location.key' from react-router-dom serves as this unique key.
+            */}
+			<motion.div
+				key={location.pathname} // Use location.pathname as the key for page transitions
+				className="page" // Apply your .page styles here
+				variants={pageVariants} // Apply your defined animation variants
+				initial="initial"
+				animate="in"
+				exit="out"
+			>
+				<Routes location={location}>
+					<Route
+						path="/palette/new"
+						element={
+							<NewPaletteForm
+								savePalette={savePalette}
+								palettes={palettes}
+								maxColors={20}
+							/>
+						}
 					/>
-				}
-			/>
-			<Route
-				path="/"
-				element={
-					<PaletteList
-						palettes={palettes}
-						deletePalette={deletePalette}
+					<Route
+						path="/"
+						element={
+							<PaletteList
+								palettes={palettes}
+								deletePalette={deletePalette}
+							/>
+						}
 					/>
-				}
-			/>
-			<Route path="/palette/:id" element={<PalettePage />} />
+					<Route path="/palette/:id" element={<PalettePage />} />
 
-			<Route
-				path="/palette/:paletteId/:colorId"
-				element={<SingleColorPaletteWrapper />}
-			/>
-		</Routes>
-		// <div>
-		// 	<Palette palette={generatePalette(seedColors[4])} />
-		// </div>
+					<Route
+						path="/palette/:paletteId/:colorId"
+						element={<SingleColorPaletteWrapper />}
+					/>
+					<Route path="*" element={<h1>Page Not Found!</h1>} />
+				</Routes>
+			</motion.div>
+		</AnimatePresence>
 	);
 }
 
