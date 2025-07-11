@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { Link } from 'react-router-dom';
+
 import styles from './styles/PaletteMetaForm.module.css';
 import EmojiPicker from 'emoji-picker-react';
-export default function PaletteMetaForm({
-	open,
-	palettes,
-	handleSubmit,
-	hideForm,
-}) {
+export default function PaletteMetaForm({ handleSubmit, hideForm }) {
 	const [newPaletteName, setNewPaletteName] = React.useState('');
 	const [stage, setStage] = React.useState('form');
 	const handlePaletteNameChange = (e) => {

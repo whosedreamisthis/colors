@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo } from 'react';
 import styles from './styles/MiniPalette.module.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 const MiniPalette = memo(function MiniPalette({
@@ -33,16 +33,7 @@ const MiniPalette = memo(function MiniPalette({
 	const onDeletePalette = (e) => {
 		e.preventDefault();
 		openDialog(id);
-
-		// setIsFadingOut(true); // Start the fade-out animation
-		// // Set a timeout to call the actual deletePalette function
-		// // The duration should match the CSS transition duration
-		// const animationDuration = 500; // 0.5s from CSS
-		// setTimeout(() => {
-		// 	deletePalette(id); // Call the parent's delete function
-		// }, animationDuration);
 	};
-	console.log('RENDERING', paletteName);
 	return (
 		<div
 			className={`${styles.root} ${isFadingOut ? styles.fadeOut : ''}`}
