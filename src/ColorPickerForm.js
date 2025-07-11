@@ -3,6 +3,8 @@ import { ChromePicker } from 'react-color';
 import Button from '@mui/material/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import styles from './styles/ColorPickerForm.module.css';
+import chroma from 'chroma-js';
+
 export default function ColorPickerForm({
 	paletteIsFull,
 	addNewColor,
@@ -10,6 +12,8 @@ export default function ColorPickerForm({
 	setCurrentColor,
 }) {
 	const [newColorName, setNewColorName] = React.useState('');
+	const textColor =
+		chroma(currentColor).luminance() < 0.25 ? 'white' : 'black';
 
 	const handleChange = (e) => {
 		setNewColorName(e.target.value);
@@ -63,6 +67,7 @@ export default function ColorPickerForm({
 					variant="contained"
 					style={{
 						backgroundColor: paletteIsFull ? 'grey' : currentColor,
+						color: textColor,
 					}}
 					type="submit"
 					disabled={paletteIsFull}
