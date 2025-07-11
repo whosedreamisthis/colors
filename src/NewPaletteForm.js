@@ -143,7 +143,8 @@ export default function NewPaletteForm({ savePalette, palettes, maxColors }) {
 	};
 
 	const addRandomColor = () => {
-		const allColors = seedColors.map((p) => p.colors).flat();
+		const allPossibleSources = [...palettes, ...seedColors];
+		const allColors = allPossibleSources.map((p) => p.colors).flat();
 		var rand = Math.floor(Math.random() * allColors.length);
 		const randomColor = allColors[rand];
 		setColors([...colors, randomColor]);
